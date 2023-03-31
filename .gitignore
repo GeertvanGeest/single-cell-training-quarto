@@ -1,0 +1,7 @@
+course_data/
+.DS_Store
+/.quarto/
+/_site/
+/_freeze/
+*cache*
+*figure-html/

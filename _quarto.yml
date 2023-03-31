@@ -1,0 +1,41 @@
+project:
+  type: website
+  execute-dir: project
+
+website:
+  title: "SIB training"
+  favicon: assets/SIB_logo.svg
+  search: true
+  page-navigation: true
+  navbar:
+    background: "#003eaa"
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - text: "day 1"
+        menu:
+          - href: day1/analysis_tools_qc.qmd
+            text: "Analysis tools and QC"
+    right:
+      - icon: github
+        href: https://github.com/
+        aria-label: GitHub
+  sidebar:
+    logo: assets/SIB_LogoQ_GBv.svg
+
+format:
+  html:
+    theme: default
+    css: styles.css
+    toc: true
+    header-includes: |
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato|Sofia|Source+Sans+Pro">
+
+execute:
+  freeze: true 
+  cache: true
+
+
+
