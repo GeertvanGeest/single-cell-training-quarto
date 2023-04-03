@@ -3,7 +3,7 @@ project:
   execute-dir: project
 
 website:
-  title: "SIB training"
+  title: "Single cell transcriptomics"
   favicon: assets/SIB_logo.svg
   search: true
   page-navigation: true
@@ -31,8 +31,10 @@ website:
 format:
   html:
     code-link: true
-    theme: default
-    css: styles.css
+    theme: 
+      - default
+      - custom.scss
+    # css: styles.css
     toc: true
     header-includes: |
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato|Sofia|Source+Sans+Pro">
