@@ -158,6 +158,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-day-1">    
         <li>
+    <a class="dropdown-item" href="../day1/setup.html">
+ <span class="dropdown-text">Setup</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../day1/analysis_tools_qc.html">
  <span class="dropdown-text">Analysis tools and QC</span></a>
   </li>  
@@ -263,16 +267,11 @@ Learning outcomes
 </section>
 <section id="exercises" class="level2">
 <h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-1_26ec3ddf80da1c6185cc3ce7f7f44723">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://single-cell-transcriptomics.s3.eu-central-1.amazonaws.com/course_data.tar.gz</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xvf</span> course_data.tar.gz</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> course_data.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <section id="loading-scrnaseq-data" class="level3">
 <h3 class="anchored" data-anchor-id="loading-scrnaseq-data">Loading scRNAseq data</h3>
 <p>The next step after the generation of the count matrices with <code>cellranger count</code>, is the data analysis. The <code>R</code> package <code>Seurat</code> is currently the most popular software to do this. To start working with <code>Seurat</code> you can load it into your environment like this:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-2_e4a68a4f62618b3702684eee0baa2b4c">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-1_25aa12579d19e7c4f40c2bb609a7c055">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -288,15 +287,15 @@ Tip: make an R script
 </div>
 </div>
 <p>First, we will load a file specifying the different samples, and create an object specifying the location of the count data:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-3_670331fd9ab28ca9ac0d6428e38d965d">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sample_info <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"course_data/sample_info_course.csv"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>datadirs <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">"course_data"</span>, <span class="st">"count_matrices"</span>, sample_info<span class="sc">$</span>SampleName,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"outs"</span>, <span class="st">"filtered_feature_bc_matrix"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(datadirs) <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"_"</span>, <span class="st">"-"</span>, sample_info<span class="sc">$</span>SampleName)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>datadirs <span class="ot">&lt;-</span> datadirs[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-2_e6a1bca50719ba5f64630f8e9f6bd6ce">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sample_info <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"course_data/sample_info_course.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>datadirs <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">"course_data"</span>, <span class="st">"count_matrices"</span>, sample_info<span class="sc">$</span>SampleName,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"outs"</span>, <span class="st">"filtered_feature_bc_matrix"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(datadirs) <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"_"</span>, <span class="st">"-"</span>, sample_info<span class="sc">$</span>SampleName)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>datadirs <span class="ot">&lt;-</span> datadirs[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The object <code>datadirs</code> is a named vector specifying the paths of the count directories for each sample:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-4_9caaa35ad3bf2beb8421e4a7be68804f">
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-3_9e674ae02680a2518c0886a8dc488cc7">
 <div class="cell-output cell-output-stdout">
 <pre><code>                                                             PBMMC-1 
 "course_data/count_matrices/PBMMC_1/outs/filtered_feature_bc_matrix" 
@@ -307,12 +306,12 @@ Tip: make an R script
 </div>
 </div>
 <p>To run through a typical <code>Seurat</code> analysis, we will use the files that are in the directory <code>data/filtered_feature_bc_matrix</code>. This directory is part of the output generated by <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger"><code>cellranger</code></a>. To load this data into R and generate a sparse matrix, run the following command:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-5_d8c5ea7538d752e34e3bda4313052e2f">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sparse_matrix <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">Read10X</span>(<span class="at">data.dir =</span> datadirs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-4_7a270a37a20fb7f47053d3647840c52b">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sparse_matrix <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">Read10X</span>(<span class="at">data.dir =</span> datadirs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This imports a raw count matrix. Have a look at the counts of the first 30 cells of three genes by running:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-6_f1037ad3ea609b7f33d8e68c000eda4c">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sparse_matrix[<span class="fu">c</span>(<span class="st">"PECAM1"</span>, <span class="st">"CD8A"</span>, <span class="st">"TSPAN1"</span>), <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-5_7713b9cda9fc56e68c70327bec738c46">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sparse_matrix[<span class="fu">c</span>(<span class="st">"PECAM1"</span>, <span class="st">"CD8A"</span>, <span class="st">"TSPAN1"</span>), <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>3 x 30 sparse Matrix of class "dgCMatrix"</code></pre>
 </div>
@@ -328,11 +327,11 @@ TSPAN1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</code></pre>
 </div>
 <p>You will see many dots (zeros) and a few integers representing the counts per gene per cell.</p>
 <p>To generate a <code>Seurat</code> object, we will run <code>CreateSeuratObject</code>. Note that while creating the object, we already do some mild filtering; we only import genes that are expressed in at least 3 cells, and we only import cells that have at least 100 different genes expressed:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-7_621fa5b005681fb7ad2478c5af46fbea">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>seu <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">CreateSeuratObject</span>(<span class="at">counts =</span> sparse_matrix,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">project =</span> <span class="st">"pbmmc"</span>,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">min.cells =</span> <span class="dv">3</span>,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">min.features =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-6_328b14675dc4051b085a2b79008893a7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>seu <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">CreateSeuratObject</span>(<span class="at">counts =</span> sparse_matrix,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">project =</span> <span class="st">"pbmmc"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">min.cells =</span> <span class="dv">3</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">min.features =</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Feature names cannot have underscores ('_'), replacing with dashes
 ('-')</code></pre>
@@ -377,7 +376,7 @@ Answer
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Typing <code>seu</code> should return:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-8_96ed70f96d5223c95ba877065e4ca09b">
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-7_d95f81b3c5710bd6e7da9415c1be7c58">
 <div class="cell-output cell-output-stdout">
 <pre><code>An object of class Seurat 
 18673 features across 6946 samples within 1 assay 
@@ -501,27 +500,27 @@ Answer
 </div>
 <div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-9_53c1bca8768838c88270f943cd88df59">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(seu<span class="sc">$</span>nCount_RNA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-8_89a7838561d7c0206f01a92cdc9e1fda">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(seu<span class="sc">$</span>nCount_RNA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>or</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-10_4ffdfa0612b63d365a617278190fcf6d">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(seu<span class="sc">@</span>meta.data<span class="sc">$</span>nCount_RNA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-9_d70bf80982771d88a68da904527e93cb">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(seu<span class="sc">@</span>meta.data<span class="sc">$</span>nCount_RNA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
 </div>
 </div>
 <p>There are also built-in functions to plot data from <code>Seurat</code> object, for example <code>FeatureScatter</code>. This function enables you easily draw a scatterplot from a <code>Seurat</code> object:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-11_ab95d526d9cf0e480e1eedb5327ad5c6">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Seurat<span class="sc">::</span><span class="fu">FeatureScatter</span>(seu, <span class="at">feature1 =</span> <span class="st">"nCount_RNA"</span>, <span class="at">feature2 =</span> <span class="st">"nFeature_RNA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-10_a363f5a9d59330d327b0e1c9ef15270f">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Seurat<span class="sc">::</span><span class="fu">FeatureScatter</span>(seu, <span class="at">feature1 =</span> <span class="st">"nCount_RNA"</span>, <span class="at">feature2 =</span> <span class="st">"nFeature_RNA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>You can find a nice overview of such functions <a href="https://satijalab.org/seurat/articles/essential_commands.html">here</a>.</p>
@@ -529,11 +528,11 @@ Answer
 <section id="visualizing-qc-per-cell-and-gene" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-qc-per-cell-and-gene">Visualizing QC per cell and gene</h3>
 <p>While generating the <code>Seurat</code> object, there were already some quality measures calculated for each cell, namely the total UMI counts per cell (<code>nCount_RNA</code>) and the total number of detected features per cell (<code>nFeature_RNA</code>). We can plot those in a violin plot and evaluate their distribution per sample:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-12_151b0c1ce9f740ae7415e1fac190b8b5">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>Seurat<span class="sc">::</span><span class="fu">VlnPlot</span>(seu, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"nCount_RNA"</span>,</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"nFeature_RNA"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-11_b8737a5158f033ff02f808d30c8aabbc">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Seurat<span class="sc">::</span><span class="fu">VlnPlot</span>(seu, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"nCount_RNA"</span>,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"nFeature_RNA"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>You can see that there is quite a wide range for both. A cell with low number of detected features or counts might not give you a lot of information, while a high number of detected features/counts might point to doublets.</p>
@@ -545,21 +544,21 @@ Answer
 <li><strong>Hemoglobin genes</strong>: these transcripts are very abundant in erythrocytes. Depending on your application, you can expect ‘contamination’ of erythrocytes and select against it.</li>
 </ul>
 <p>In order to have an idea about the relative counts of these type of genes in our dataset, we can calculate their expression as relative counts in each cell. We do that by selecting genes based on patterns (e.g.&nbsp;<code>^MT-</code> matches with all gene names starting with <code>MT</code>, i.e.&nbsp;mitochondrial genes):</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-13_d28f8d2e840dd13c8d0a89d77ab575ae">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mitochondrial genes</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>seu <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">PercentageFeatureSet</span>(seu, </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">pattern =</span> <span class="st">"^MT-"</span>, </span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">col.name =</span> <span class="st">"percent.mito"</span>)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ribosomal genes</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>seu <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">PercentageFeatureSet</span>(seu, </span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">pattern =</span> <span class="st">"^RP[SL]"</span>,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">col.name =</span> <span class="st">"percent.ribo"</span>)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># hemoglobin genes (but not HBP)</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>seu <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">PercentageFeatureSet</span>(seu,</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">pattern =</span> <span class="st">"^HB[^(P)]"</span>,</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">col.name =</span> <span class="st">"percent.globin"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-12_ccc784fc94c89248c7f99167dc7a8e3b">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mitochondrial genes</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>seu <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">PercentageFeatureSet</span>(seu, </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">pattern =</span> <span class="st">"^MT-"</span>, </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">col.name =</span> <span class="st">"percent.mito"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ribosomal genes</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>seu <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">PercentageFeatureSet</span>(seu, </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">pattern =</span> <span class="st">"^RP[SL]"</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">col.name =</span> <span class="st">"percent.ribo"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># hemoglobin genes (but not HBP)</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>seu <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">PercentageFeatureSet</span>(seu,</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">pattern =</span> <span class="st">"^HB[^(P)]"</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">col.name =</span> <span class="st">"percent.globin"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout-important callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -587,7 +586,7 @@ Answer
 <div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>If we type <code>head(seu@meta.data)</code> it returns:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-14_9868359ac8c057a6b323f892067f1c07">
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-13_0202f8694b6ac83ccb3a1cb8b40b61e6">
 <div class="cell-output cell-output-stdout">
 <pre><code>                           orig.ident nCount_RNA nFeature_RNA percent.mito
 PBMMC-1_AAACCTGCAGACGCAA-1    PBMMC-1       2401          909     2.540608
@@ -610,21 +609,21 @@ PBMMC-1_AAAGCAACATCAGTCA-1     23.40693     36.9682283</code></pre>
 </div>
 </div>
 <p>Now we can plot the distribution of these percentages in a violin plot:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-15_1766b74660c75827a65995c0142b49f1">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Seurat<span class="sc">::</span><span class="fu">VlnPlot</span>(seu, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"percent.mito"</span>,</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"percent.ribo"</span>,</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"percent.globin"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-14_2891c7d7f0023e3b97cdc30952c607d2">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Seurat<span class="sc">::</span><span class="fu">VlnPlot</span>(seu, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"percent.mito"</span>,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"percent.ribo"</span>,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"percent.globin"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>You can see that <code>PBMMC-2</code> is quite different from the two others, it has a group of cells with very low ribosomal counts and one with very high globin counts. Maybe these two percentages are negatively correlated? Let’s have a look, by plotting the two percentages against each other:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-16_baf82c8147d1ce80bf8c012a05bfcbd0">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Seurat<span class="sc">::</span><span class="fu">FeatureScatter</span>(seu, </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">feature1 =</span> <span class="st">"percent.globin"</span>, </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">feature2 =</span> <span class="st">"percent.ribo"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-15_0bceb5be33e1b676e5537aa939661744">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Seurat<span class="sc">::</span><span class="fu">FeatureScatter</span>(seu, </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">feature1 =</span> <span class="st">"percent.globin"</span>, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">feature2 =</span> <span class="st">"percent.ribo"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="callout-important callout callout-style-default callout-captioned">
@@ -657,38 +656,38 @@ Answer
 </div>
 </div>
 <p>We can also evaluate the relative expression of other genes in our dataset, for example, the ones that are most highly expressed. Some very highly expressed genes might point to a technical cause, and we might consider to remove them. Below you will find a simple function to generate a boxplot of relative counts per gene per cell. Load it into your environment and run it on our <code>seu</code> object:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-17_dc19acc6745e476a1908bb4a1daa4013">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>most_expressed_boxplot <span class="ot">&lt;-</span> <span class="cf">function</span>(object, <span class="at">ngenes =</span> <span class="dv">20</span>){</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># matrix of raw counts</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  cts <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">GetAssayData</span>(object, <span class="at">assay =</span> <span class="st">"RNA"</span>, <span class="at">slot =</span> <span class="st">"counts"</span>)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get percentage/cell</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  cts <span class="ot">&lt;-</span> <span class="fu">t</span>(cts)<span class="sc">/</span><span class="fu">colSums</span>(cts)<span class="sc">*</span><span class="dv">100</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  medians <span class="ot">&lt;-</span> <span class="fu">apply</span>(cts, <span class="dv">2</span>, median)</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get top n genes</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  most_expressed <span class="ot">&lt;-</span> <span class="fu">order</span>(medians, <span class="at">decreasing =</span> T)[ngenes<span class="sc">:</span><span class="dv">1</span>]</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  most_exp_matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>((cts[,most_expressed]))</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># prepare for plotting</span></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  most_exp_df <span class="ot">&lt;-</span> <span class="fu">stack</span>(<span class="fu">as.data.frame</span>(most_exp_matrix))</span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(most_exp_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"perc_total"</span>, <span class="st">"gene"</span>)</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># boxplot with ggplot2</span></span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>  boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(most_exp_df, <span class="fu">aes</span>(<span class="at">x=</span>gene, <span class="at">y=</span>perc_total)) <span class="sc">+</span></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_flip</span>()</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(boxplot)</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="fu">most_expressed_boxplot</span>(seu, <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-16_2366eb624c12a3e411d22227e3b8b9f4">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>most_expressed_boxplot <span class="ot">&lt;-</span> <span class="cf">function</span>(object, <span class="at">ngenes =</span> <span class="dv">20</span>){</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># matrix of raw counts</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  cts <span class="ot">&lt;-</span> Seurat<span class="sc">::</span><span class="fu">GetAssayData</span>(object, <span class="at">assay =</span> <span class="st">"RNA"</span>, <span class="at">slot =</span> <span class="st">"counts"</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get percentage/cell</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  cts <span class="ot">&lt;-</span> <span class="fu">t</span>(cts)<span class="sc">/</span><span class="fu">colSums</span>(cts)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  medians <span class="ot">&lt;-</span> <span class="fu">apply</span>(cts, <span class="dv">2</span>, median)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get top n genes</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  most_expressed <span class="ot">&lt;-</span> <span class="fu">order</span>(medians, <span class="at">decreasing =</span> T)[ngenes<span class="sc">:</span><span class="dv">1</span>]</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  most_exp_matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>((cts[,most_expressed]))</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># prepare for plotting</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  most_exp_df <span class="ot">&lt;-</span> <span class="fu">stack</span>(<span class="fu">as.data.frame</span>(most_exp_matrix))</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(most_exp_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"perc_total"</span>, <span class="st">"gene"</span>)</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># boxplot with ggplot2</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>  boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(most_exp_df, <span class="fu">aes</span>(<span class="at">x=</span>gene, <span class="at">y=</span>perc_total)) <span class="sc">+</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_flip</span>()</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(boxplot)</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="fu">most_expressed_boxplot</span>(seu, <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>As for most 10X based poly-A enriched single cell datasets, we find a relatively high expression of MALAT1. Many researchers choose to remove it, but it can have biological relevance (e.g.&nbsp;<a href="https://www.nature.com/articles/s41420-020-00383-y">Shaat et al.&nbsp;2021</a>).</p>
@@ -704,17 +703,17 @@ Answer
 </ul>
 <p>In this case, a sensible decision would be to do mild filtering on the number of features per cell and mitochondrial counts. We can leave the possible erythrocytes in for now, and see where they end up later during the dimensionality reduction.</p>
 <p>In the M&amp;M of the <a href="https://www.nature.com/articles/s41598-020-64929-x#Sec7">publication</a>, the authors describe that they have used a threshold of &lt; 8% mitochondrial counts and &gt; 200 features per cell. To filter against possible doublets, here, we also filter out cells with &gt; 5000 detected features/cell. Filtering <code>Seurat</code> objects can be done with the <code>subset</code> method for class <code>SeuratObject</code>:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-18_77e41082d5c98b7e8f589abc1fb56918">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>seu <span class="ot">&lt;-</span> <span class="fu">subset</span>(seu, <span class="at">subset =</span> nFeature_RNA <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">&amp;</span> </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                nFeature_RNA <span class="sc">&lt;</span> <span class="dv">5000</span> <span class="sc">&amp;</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                percent.mito <span class="sc">&lt;</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-17_44127abd7e2e41caf639d8579a58a040">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>seu <span class="ot">&lt;-</span> <span class="fu">subset</span>(seu, <span class="at">subset =</span> nFeature_RNA <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">&amp;</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                nFeature_RNA <span class="sc">&lt;</span> <span class="dv">5000</span> <span class="sc">&amp;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                percent.mito <span class="sc">&lt;</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To evaluate this did the trick we can visualize those parameters again in a violin plot:</p>
-<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-19_00ca7ba009739be31d1e9cec87dcf4bd">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>Seurat<span class="sc">::</span><span class="fu">VlnPlot</span>(seu, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"nFeature_RNA"</span>,</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"percent.mito"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="analysis_tools_qc_cache/html/unnamed-chunk-18_2240c0b80d306a805e45b6d439d0aee4">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>Seurat<span class="sc">::</span><span class="fu">VlnPlot</span>(seu, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"nFeature_RNA"</span>,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"percent.mito"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_tools_qc_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
