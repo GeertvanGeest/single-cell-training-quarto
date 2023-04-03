@@ -30,6 +30,7 @@ website:
 
 format:
   html:
+    code-link: true
     theme: default
     css: styles.css
     toc: true
