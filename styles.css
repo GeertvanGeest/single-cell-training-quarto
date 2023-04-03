@@ -9,7 +9,11 @@
 
 /* unvisited link */
 a {
-    color: #D40000;
+    color: #312783;
+}
+
+.nav-link {
+    color: #009ee3;
 }
 
 a:hover {
@@ -25,11 +29,17 @@ p {
 }
 
 .navbar-dark .navbar-brand {
-    color: white
+    color: white;
+    
 }
 
+.navbar-dark {
+    background-color: #ae191a;
+}
+
+
 code {
-    color: #500101;
+    color: #ae191a;
 }
 
 pre code {
