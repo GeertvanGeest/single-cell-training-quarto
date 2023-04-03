@@ -28,6 +28,16 @@ p {
     color: white
 }
 
+code {
+    color: #500101;
+}
+
+pre code {
+    background-color: rgba(233,236,239,.65);
+    border: 1px solid rgba(233,236,239,.65);
+    border-radius: .25rem;
+}
+
 /* .navbar-dark .navbar-nav .nav-link.active {
     color: white;
   } */
