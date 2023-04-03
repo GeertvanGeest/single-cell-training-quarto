@@ -16,8 +16,11 @@ website:
         text: About
       - text: "day 1"
         menu:
+          - href: day1/setup.qmd
+            text: "Setup"
           - href: day1/analysis_tools_qc.qmd
             text: "Analysis tools and QC"
+          
     right:
       - icon: github
         href: https://github.com/

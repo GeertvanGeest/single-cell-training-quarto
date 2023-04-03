@@ -5,3 +5,4 @@ course_data/
 /_freeze/
 *cache*
 *figure-html/
+/_*.local

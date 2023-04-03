@@ -24,13 +24,6 @@ title: "Analysis tools and QC"
 
 ## Exercises
 
-```{sh}
-#| output: false
-wget https://single-cell-transcriptomics.s3.eu-central-1.amazonaws.com/course_data.tar.gz
-tar -xvf course_data.tar.gz
-rm course_data.tar.gz
-```
-
 ### Loading scRNAseq data
 
 The next step after the generation of the count matrices with `cellranger count`, is the data analysis. The `R` package `Seurat` is currently the most popular software to do this. To start working with `Seurat` you can load it into your environment like this:
