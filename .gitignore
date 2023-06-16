@@ -6,3 +6,5 @@ course_data/
 *cache*
 *figure-html/
 /_*.local
+.Rproj.user
+*.rds
