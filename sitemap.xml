@@ -1,19 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day3/day3-2_enrichment_analysis.html</loc>
+    <lastmod>2023-06-16T16:16:23.330Z</lastmod>
+  </url>
+  <url>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day3/day3-3_trajectory_analysis.html</loc>
+    <lastmod>2023-06-16T16:16:43.455Z</lastmod>
+  </url>
+  <url>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day3/day3-4_advanced_analyses.html</loc>
+    <lastmod>2023-06-16T16:16:43.864Z</lastmod>
+  </url>
+  <url>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day3/day3-1_differential_gene_expression.html</loc>
+    <lastmod>2023-06-16T16:17:05.856Z</lastmod>
+  </url>
+  <url>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day2/day2-3_clustering.html</loc>
+    <lastmod>2023-06-16T16:17:12.435Z</lastmod>
+  </url>
+  <url>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day2/day2-1_dimensionality_reduction.html</loc>
+    <lastmod>2023-06-16T16:17:18.597Z</lastmod>
+  </url>
+  <url>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day2/day2-2_integration.html</loc>
+    <lastmod>2023-06-16T16:17:24.739Z</lastmod>
+  </url>
+  <url>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day2/day2-4_cell_annotation.html</loc>
+    <lastmod>2023-06-16T16:17:39.873Z</lastmod>
+  </url>
+  <url>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/precourse_preparations.html</loc>
+    <lastmod>2023-06-16T16:17:40.303Z</lastmod>
+  </url>
+  <url>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/course_schedule.html</loc>
+    <lastmod>2023-06-16T16:17:40.946Z</lastmod>
+  </url>
+  <url>
     <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/index.html</loc>
-    <lastmod>2023-04-05T06:27:35.760Z</lastmod>
+    <lastmod>2023-06-16T16:17:41.430Z</lastmod>
   </url>
   <url>
     <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/about.html</loc>
-    <lastmod>2023-04-05T06:27:36.125Z</lastmod>
+    <lastmod>2023-06-16T16:17:41.813Z</lastmod>
   </url>
   <url>
-    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day1/analysis_tools_qc.html</loc>
-    <lastmod>2023-04-05T06:27:46.938Z</lastmod>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day1/day1-1_setup.html</loc>
+    <lastmod>2023-06-16T16:17:43.332Z</lastmod>
   </url>
   <url>
-    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day1/setup.html</loc>
-    <lastmod>2023-04-05T06:27:48.130Z</lastmod>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day1/day1-2_analysis_tools_qc.html</loc>
+    <lastmod>2023-06-16T16:17:53.711Z</lastmod>
+  </url>
+  <url>
+    <loc>https://GeertvanGeest.github.io/single-cell-training-quarto/day1/day1-3_normalization_scaling.html</loc>
+    <lastmod>2023-06-16T16:18:00.001Z</lastmod>
   </url>
 </urlset>

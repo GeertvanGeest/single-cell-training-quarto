@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Single cell transcriptomics - Trajectory analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/SIB_logo.svg" rel="icon" type="image/svg+xml">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+</head>
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Single cell transcriptomics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link active" href="../index.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../precourse_preparations.html" rel="" target="">
+ <span class="menu-text">Precourse preparations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../course_schedule.html" rel="" target="">
+ <span class="menu-text">Course schedule</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-1" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">day 1</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-1">
+<li>
+    <a class="dropdown-item" href="../day1/day1-1_setup.html" rel="" target="">
+ <span class="dropdown-text">Setup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../day1/day1-2_analysis_tools_qc.html" rel="" target="">
+ <span class="dropdown-text">Analysis tools and QC</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../day1/day1-3_normalization_scaling.html" rel="" target="">
+ <span class="dropdown-text">Normalization and scaling</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-2" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">day 2</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-2">
+<li>
+    <a class="dropdown-item" href="../day2/day2-1_dimensionality_reduction.html" rel="" target="">
+ <span class="dropdown-text">Dimensionality reduction</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../day2/day2-2_integration.html" rel="" target="">
+ <span class="dropdown-text">Integration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../day2/day2-3_clustering.html" rel="" target="">
+ <span class="dropdown-text">Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../day2/day2-4_cell_annotation.html" rel="" target="">
+ <span class="dropdown-text">Cell annotation</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-day-3" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">day 3</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-day-3">
+<li>
+    <a class="dropdown-item" href="../day3/day3-1_differential_gene_expression.html" rel="" target="">
+ <span class="dropdown-text">Differential gene expression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../day3/day3-2_enrichment_analysis.html" rel="" target="">
+ <span class="dropdown-text">Enrichment analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../day3/day3-3_trajectory_analysis.html" rel="" target="">
+ <span class="dropdown-text">Trajectory analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../day3/day3-4_advanced_analyses.html" rel="" target="">
+ <span class="dropdown-text">Advanced analyses</span></a>
+  </li>  
+    </ul>
+</li>
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+<div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Trajectory analysis</li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/SIB_LogoQ_GBv.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      </div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#material" id="toc-material" class="nav-link active" data-scroll-target="#material">Material</a></li>
+  <li>
+<a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+<li><a href="#trajectory-analysis-using-slingshot" id="toc-trajectory-analysis-using-slingshot" class="nav-link" data-scroll-target="#trajectory-analysis-using-slingshot">Trajectory analysis using Slingshot</a></li>
+  <li><a href="#trajectory-analysis-with-monocle3" id="toc-trajectory-analysis-with-monocle3" class="nav-link" data-scroll-target="#trajectory-analysis-with-monocle3">Trajectory analysis with <code>monocle3</code></a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Trajectory analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="material" class="level2"><h2 class="anchored" data-anchor-id="material">Material</h2>
+<p><a href="../assets/pdf/Trajectories.pdf">Download the presentation</a></p>
+<ul>
+<li>
+<code>slingshot</code> <a href="https://www.bioconductor.org/packages/release/bioc/vignettes/slingshot/inst/doc/vignette.html">vignette</a>
+</li>
+<li><a href="https://cole-trapnell-lab.github.io/monocle3/"><code>monocle3</code></a></li>
+</ul></section><section id="exercises" class="level2"><h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<p>Load the following packages:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-1_d4c284fcf56cb4378ef66339cdc7581f">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">SingleCellExperiment</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://bioconductor.org/packages/scater/">scater</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">slingshot</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/eclarke/ggbeeswarm">ggbeeswarm</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat">Seurat</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="trajectory-analysis-using-slingshot" class="level3"><h3 class="anchored" data-anchor-id="trajectory-analysis-using-slingshot">Trajectory analysis using Slingshot</h3>
+<blockquote class="blockquote">
+<p>This part uses the <code>Deng</code> dataset</p>
+</blockquote>
+<p>First, download the dataset from github within your <strong>Terminal</strong> tab as on Day 1:</p>
+<figure class="figure"><img src="../assets/images/select_terminal_tab.png" width="300" class="figure-img"></figure><p>Type the following commands within the Terminal tab:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-2_e4bad5942b9bfe0119c036f8780213f9">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> course_data/</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://github.com/hemberg-lab/nrg-paper-figures/raw/master/deng-reads.rds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, within R, import the rds file. the ‘Deng’ dataset is an object of class <code>SingleCellExperiment</code>.</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-3_404cba383611c1fc0eb2f2bbff6b2226">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deng_SCE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"course_data/deng-reads.rds"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Perform the first steps of the analysis. The deng_SCE object contains cells that were isolated at different stages of mouse embryogenesis, from the zygote stage to the late blastula.</p>
+<p>The levels of the cell type are in alphabetical order. We now change the level order for plotting in developmental order:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-4_5060ee0d09fde04ee30fe65621eed6af">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deng_SCE</span><span class="op">$</span><span class="va">cell_type2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">deng_SCE</span><span class="op">$</span><span class="va">cell_type2</span>,</span>
+<span>                              levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"zy"</span>,</span>
+<span>                                         <span class="st">"early2cell"</span>,</span>
+<span>                                         <span class="st">"mid2cell"</span>,</span>
+<span>                                         <span class="st">"late2cell"</span>,</span>
+<span>                                         <span class="st">"4cell"</span>,</span>
+<span>                                         <span class="st">"8cell"</span>,</span>
+<span>                                         <span class="st">"16cell"</span>,</span>
+<span>                                         <span class="st">"earlyblast"</span>,</span>
+<span>                                         <span class="st">"midblast"</span>,</span>
+<span>                                         <span class="st">"lateblast"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can run a PCA directly on the object of class <code>SingleCellExperiment</code> with the function <code>runPCA</code>:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-5_8abac0aab5e1093c92cd1780386297a3">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deng_SCE</span> <span class="op">&lt;-</span> <span class="fu">scater</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocSingular/man/runPCA.html">runPCA</a></span><span class="op">(</span><span class="va">deng_SCE</span>, ncomponents <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use the <code>reducedDim</code> function to access the PCA and store the results.</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-6_dd6b248c0e0140b5367ec6e61bc2ecc5">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pca</span> <span class="op">&lt;-</span> <span class="fu">SingleCellExperiment</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/reducedDims.html">reducedDim</a></span><span class="op">(</span><span class="va">deng_SCE</span>, <span class="st">"PCA"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Describe how the PCA is stored in a matrix. Why does it have this structure?</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-7_de9c96f267ec892acd50f82ce0bb2a9b">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pca</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              PC1      PC2       PC3         PC4        PC5        PC6
+16cell   24.79868 62.20826  8.035201 -2.07391816  2.1297390 14.0930954
+16cell.1 28.77121 50.35974 13.607012  0.08664449  0.9454185  3.5987880
+16cell.2 26.67901 61.03875  7.239352 -6.60967794 -1.0775002 11.8876579
+16cell.3 29.01151 56.03620  6.433057  2.85332708 -4.2885083 -0.1488504
+16cell.4 26.38026 58.09265  4.671850  7.99519397  9.8077416  2.0570042
+16cell.5 24.90566 60.77897  5.632497 -3.80156587  9.8835527 11.9028394
+                PC7        PC8       PC9      PC10      PC11       PC12
+16cell    2.4645020  1.6350660  7.202260  9.862212 10.660702  0.6401721
+16cell.1  2.1726663 -3.3481641  8.967394  6.664942 14.493227 11.7471565
+16cell.2 -7.9007309  0.3368756  6.032645  5.295515 15.384993  4.2930696
+16cell.3 -4.3727592 -1.1582470  1.520145 -8.789699 19.386866 -0.4999047
+16cell.4 -0.6031572 -3.6743278  5.793753 10.823787  7.613724  4.7288640
+16cell.5 -4.3269009  3.8968881 11.805221  9.798854 11.016137 19.1535086
+              PC13      PC14       PC15       PC16      PC17      PC18
+16cell   -5.716841  6.544614  -6.652210   3.458346  4.499013 11.360753
+16cell.1 13.284708 -4.206404  -8.721043   7.926277  0.703508  5.418131
+16cell.2  9.633173  1.672498  -9.609001   9.302794 10.219743  5.763834
+16cell.3 14.177687 -8.509097  -6.978210 -10.771078  6.188808 -6.504081
+16cell.4  3.106382 -4.078414 -10.739979  12.032452  6.239499 -2.331292
+16cell.5  9.544362 -2.255400  -8.614958   2.832196  1.798584 -2.321082
+               PC19      PC20      PC21       PC22       PC23       PC24
+16cell   -2.2617345  2.456274 11.227414  1.7122827  -8.418641  -4.254968
+16cell.1 11.8613891 -4.069530  9.320831  0.5802347 -11.878096   6.412425
+16cell.2  3.3460356 -4.165813  2.031473 -2.1106373  -1.762218   1.135134
+16cell.3  0.6042649 -6.008176  9.982856  9.4888653   2.822138 -12.871921
+16cell.4 -3.9402029  0.298227 10.773722 -0.6374236   4.730329  -4.670391
+16cell.5  2.0280791 -5.050525 -3.252243 -7.1527175  -9.923140   1.791511
+              PC25      PC26       PC27      PC28         PC29       PC30
+16cell    4.049629  4.133374 -0.6235391  3.381254 -13.94917609  -8.217824
+16cell.1  8.052083  8.334263 -0.5815629 -4.592214  -1.32417854   5.266909
+16cell.2  2.326133  3.775858 -2.3388745  6.947394  -0.08121559  -2.942813
+16cell.3  5.860750  1.869659  7.0402429 -5.092207   2.53575943 -18.529304
+16cell.4  4.291113 13.005331  3.2802102 -4.606226   3.52531994  -3.599833
+16cell.5 -4.708265  5.717693  1.1023767 -9.761377   4.57312078 -12.138646
+               PC31      PC32       PC33      PC34       PC35       PC36
+16cell    -6.897320  5.675943 -8.6076039  3.713348  0.9099737  4.7467546
+16cell.1  -4.538307 -9.166969  9.4525575  8.848231  2.0782319  7.4318993
+16cell.2   3.082470  2.207176 -0.5365986  3.895378 -7.4493361  0.7465149
+16cell.3   1.680117  3.839556 13.3156066  6.257479  4.1112596  0.2780589
+16cell.4 -13.314741  1.453554 -0.1334034 -2.941487  0.8162660 -2.9940693
+16cell.5  -4.608498 12.180530 -5.8667454 -6.645273 -1.0224859  0.8960299
+              PC37       PC38       PC39       PC40      PC41       PC42
+16cell   -9.063470 -5.2765051  1.1758453  -9.474215  3.559391 -4.7781174
+16cell.1 -6.217009  1.0216459  0.5798035 -21.705585 -3.570104  2.3279923
+16cell.2 -6.227582  3.0863112  8.6153521   1.401230  2.266017  0.8150665
+16cell.3 -8.411600  3.7169411 -0.7050601  -2.959623 -3.123082  1.0916370
+16cell.4  2.871774 -4.2664023 -7.4894594   8.207422  4.223035 -1.4763577
+16cell.5 10.169730  0.3923632 -9.3346900  -8.114487 11.186021 -4.5635674
+                PC43      PC44      PC45      PC46        PC47      PC48
+16cell    7.92280920  8.558202  7.058962  3.058209  -0.5723866  4.674964
+16cell.1 -5.60067538 -8.717056 -6.480960  8.554813 -13.1868736  3.397933
+16cell.2 -5.25328812  5.803788  2.726822  1.241769   7.4824415 -4.088457
+16cell.3  0.05135523  2.181424  2.404780  8.691231   8.9700016 -3.713542
+16cell.4 -1.55019720 -4.946841  0.520753 -3.068227  10.7801148  5.167662
+16cell.5  9.98211745  8.759947 -3.727758 -9.064882  -1.7524456 -3.306614
+              PC49       PC50
+16cell    2.936245 -3.6018020
+16cell.1  3.420242  3.4912940
+16cell.2 -4.446019  0.2314861
+16cell.3  5.179606 -9.7145187
+16cell.4  1.077786 -3.0533212
+16cell.5 -5.019036 -0.9294612</code></pre>
+</div>
+</div>
+<p>Add PCA data to the deng_SCE object.</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-8_715821a37ffd6c33f24296255cac4682">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deng_SCE</span><span class="op">$</span><span class="va">PC1</span> <span class="op">&lt;-</span> <span class="va">pca</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span></span>
+<span><span class="va">deng_SCE</span><span class="op">$</span><span class="va">PC2</span> <span class="op">&lt;-</span> <span class="va">pca</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Plot PC biplot with cells colored by cell_type2. <code>colData(deng_SCE)</code> accesses the cell metadata <code>DataFrame</code> object for <code>deng_SCE</code>. Look at Figure 1A of the <a href="https://science.sciencemag.org/content/343/6167/193">paper</a> as a comparison to your PC biplot.</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-9_b9f13c73ed4ef3253255aacc6409850c">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">deng_SCE</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">PC1</span>, y <span class="op">=</span> <span class="va">PC2</span>, color <span class="op">=</span> <span class="va">cell_type2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">2</span>, shape<span class="op">=</span><span class="fl">20</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"PC1"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"PC2"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"PC biplot"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="day3-3_trajectory_analysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>PCA is a simple approach and can be good to compare to more complex algorithms designed to capture differentiation processes. As a simple measure of pseudotime we can use the coordinates of PC1. Plot PC1 vs cell_type2.</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-10_b6afc8d321d6dd8e2214a66be9d4dd61">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deng_SCE</span><span class="op">$</span><span class="va">pseudotime_PC1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rank.html">rank</a></span><span class="op">(</span><span class="va">deng_SCE</span><span class="op">$</span><span class="va">PC1</span><span class="op">)</span>  <span class="co"># rank cells by their PC1 score</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create a jitter plot</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-11_a05c4f0b1d8d379276f9d4639acf766a">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">deng_SCE</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">pseudotime_PC1</span>, y <span class="op">=</span> <span class="va">cell_type2</span>,</span>
+<span>                                             colour <span class="op">=</span> <span class="va">cell_type2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggbeeswarm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_quasirandom.html">geom_quasirandom</a></span><span class="op">(</span>groupOnX <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"PC1"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Timepoint"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Cells ordered by first principal component"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="day3-3_trajectory_analysis_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Read the Slingshot documentation (<code><a href="https://rdrr.io/pkg/slingshot/man/slingshot.html">?slingshot::slingshot</a></code>) and then run Slingshot below.</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-12_fa1537895d1765fe9773c5c4b88819aa">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">slingshot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/slingshot/man/slingshot.html">slingshot</a></span><span class="op">(</span><span class="va">deng_SCE</span>, reducedDim <span class="op">=</span> <span class="st">'PCA'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>No cluster labels provided. Continuing with one cluster.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Given your understanding of the algorithm and the documentation, what is one major set of parameters we omitted here when running Slingshot?</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We didn’t set the parameter <code>clusterLabels</code></p>
+</div>
+</div>
+</div>
+<p>Here is a custom function to plot the PCA based on a <code>slingshot</code> object. Run it in the console to add it to your global environment:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-13_6c5b72d3ccae91664b4a8303880bae65">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">PCAplot_slingshot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">sce</span>, <span class="va">draw_lines</span> <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">variable</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">legend</span> <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="co"># set palette for factorial variables</span></span>
+<span>  <span class="va">palf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html">brewer.pal</a></span><span class="op">(</span><span class="fl">8</span>, <span class="st">"Set2"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="co"># set palette for numeric variables</span></span>
+<span>  <span class="va">paln</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="fu">RColorBrewer</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html">brewer.pal</a></span><span class="op">(</span><span class="fl">9</span>, <span class="st">"Blues"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="co"># extract pca from SingleCellExperiment object</span></span>
+<span>  <span class="va">pca</span> <span class="op">&lt;-</span> <span class="fu">SingleCellExperiment</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SingleCellExperiment/man/reducedDims.html">reducedDims</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span><span class="op">$</span><span class="va">PCA</span></span>
+<span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="va">col</span> <span class="op">&lt;-</span> <span class="st">"black"</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="va">variable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">is.factor</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="va">colpal</span> <span class="op">&lt;-</span> <span class="fu">palf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">colors</span> <span class="op">&lt;-</span> <span class="va">colpal</span><span class="op">[</span><span class="va">variable</span><span class="op">]</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="va">colpal</span> <span class="op">&lt;-</span> <span class="fu">paln</span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span>
+<span>    <span class="va">colors</span> <span class="op">&lt;-</span> <span class="va">colpal</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">variable</span>,breaks<span class="op">=</span><span class="fl">50</span><span class="op">)</span><span class="op">]</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="co"># draw the plot</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pca</span>, bg <span class="op">=</span> <span class="va">colors</span>, pch <span class="op">=</span> <span class="fl">21</span><span class="op">)</span></span>
+<span>  <span class="co"># draw lines</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="va">draw_lines</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="fu">slingshot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/slingshot/man/SlingshotDataSet.html">SlingshotDataSet</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fl">2</span>, <span class="va">...</span> <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="co"># add legend</span></span>
+<span>  <span class="kw">if</span><span class="op">(</span><span class="va">legend</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">is.factor</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"bottomright"</span>, pt.bg <span class="op">=</span> <span class="va">colpal</span>,legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span>,pch<span class="op">=</span><span class="fl">21</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Have a look at the PCA with the slingshot pseudotime line:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-14_39579d39d59d90bdb6cc5f41ad03a85d">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">PCAplot_slingshot</span><span class="op">(</span><span class="va">sce</span>, variable <span class="op">=</span> <span class="va">sce</span><span class="op">$</span><span class="va">slingPseudotime_1</span>, draw_lines <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>as(&lt;dsCMatrix&gt;, "dgCMatrix") is deprecated since Matrix 1.5-0; do as(., "generalMatrix") instead</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="day3-3_trajectory_analysis_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Also have a look at pseudotime versus cell type:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-15_5585b7da86531b7b093c3433f93e5a77">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">colData</a></span><span class="op">(</span><span class="va">deng_SCE</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sce</span><span class="op">$</span><span class="va">slingPseudotime_1</span>,</span>
+<span>                                             y <span class="op">=</span> <span class="va">cell_type2</span>,</span>
+<span>                                             colour <span class="op">=</span> <span class="va">cell_type2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggbeeswarm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_quasirandom.html">geom_quasirandom</a></span><span class="op">(</span>groupOnX <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Slingshot pseudotime"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Timepoint"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Cells ordered by Slingshot pseudotime"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="day3-3_trajectory_analysis_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This already looks pretty good. Let’s see whether we can improve it. First we generate clusters by using <code>Seurat</code>:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-16_72b8703344403a4a12ec5d07d5ca2390">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gcdata</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/CreateSeuratObject.html">CreateSeuratObject</a></span><span class="op">(</span>counts <span class="op">=</span> <span class="fu">SingleCellExperiment</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html">counts</a></span><span class="op">(</span><span class="va">deng_SCE</span><span class="op">)</span>,</span>
+<span>                                     project <span class="op">=</span> <span class="st">"slingshot"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gcdata</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/NormalizeData.html">NormalizeData</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">gcdata</span>,</span>
+<span>                                normalization.method <span class="op">=</span> <span class="st">"LogNormalize"</span>,</span>
+<span>                                scale.factor <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gcdata</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FindVariableFeatures.html">FindVariableFeatures</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">gcdata</span>,</span>
+<span>                                       mean.function <span class="op">=</span> <span class="va">ExpMean</span>,</span>
+<span>                                       dispersion.function <span class="op">=</span> <span class="va">LogVMR</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gcdata</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/ScaleData.html">ScaleData</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">gcdata</span>,</span>
+<span>                            do.center <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                            do.scale <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gcdata</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/RunPCA.html">RunPCA</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">gcdata</span>,</span>
+<span>                         pc.genes <span class="op">=</span> <span class="va">gcdata</span><span class="op">@</span><span class="va">var.genes</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gcdata</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FindNeighbors.html">FindNeighbors</a></span><span class="op">(</span><span class="va">gcdata</span>,</span>
+<span>                                reduction <span class="op">=</span> <span class="st">"pca"</span>,</span>
+<span>                                dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># clustering with resolution of 0.6</span></span>
+<span><span class="va">gcdata</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FindClusters.html">FindClusters</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">gcdata</span>,</span>
+<span>                               resolution <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can add these clusters to the <code>slingshot</code> function:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-17_4d5b63a45d6867062c669757b2795e8f">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deng_SCE</span><span class="op">$</span><span class="va">Seurat_clusters</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html">Idents</a></span><span class="op">(</span><span class="va">gcdata</span><span class="op">)</span><span class="op">)</span>  <span class="co"># go from factor to character</span></span>
+<span></span>
+<span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">slingshot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/slingshot/man/slingshot.html">slingshot</a></span><span class="op">(</span><span class="va">deng_SCE</span>,</span>
+<span>                                 clusterLabels <span class="op">=</span> <span class="st">'Seurat_clusters'</span>,</span>
+<span>                                 reducedDim <span class="op">=</span> <span class="st">'PCA'</span>,</span>
+<span>                                 start.clus <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check how the slingshot object has evolved</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-18_b2518cd93209fad5230c1fd6ee8abf01">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/slingshot/man/SlingshotDataSet.html">SlingshotDataSet</a></span><span class="op">(</span><span class="va">sce</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>as(&lt;dsCMatrix&gt;, "dgCMatrix") is deprecated since Matrix 1.5-0; do as(., "generalMatrix") instead</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class: SlingshotDataSet 
+
+ Samples Dimensions
+     268         50
+
+lineages: 2 
+Lineage1: 2  4  0  5  3  
+Lineage2: 2  4  1  
+
+curves: 2 
+Curve1: Length: 425.94  Samples: 234.63
+Curve2: Length: 341 Samples: 132.38</code></pre>
+</div>
+</div>
+<p>Plot PC1 versus PC2 colored by slingshot pseudotime:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-19_02ff5208095c33f5409bc8f277ac1619">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">PCAplot_slingshot</span><span class="op">(</span><span class="va">sce</span>, variable <span class="op">=</span> <span class="va">sce</span><span class="op">$</span><span class="va">slingPseudotime_2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="day3-3_trajectory_analysis_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Plot Slingshot pseudotime vs cell stage.</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-20_ad9220a9a31059b992f979ac2e12e7ab">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>cell_type2 <span class="op">=</span> <span class="va">deng_SCE</span><span class="op">$</span><span class="va">cell_type2</span>,</span>
+<span>                  slingPseudotime_1 <span class="op">=</span> <span class="va">sce</span><span class="op">$</span><span class="va">slingPseudotime_1</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">slingPseudotime_1</span>, y <span class="op">=</span> <span class="va">cell_type2</span>,</span>
+<span>        colour <span class="op">=</span> <span class="va">cell_type2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggbeeswarm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_quasirandom.html">geom_quasirandom</a></span><span class="op">(</span>groupOnX <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Slingshot pseudotime"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Timepoint"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Cells ordered by Slingshot pseudotime"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 29 rows containing missing values (position_quasirandom).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="day3-3_trajectory_analysis_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>cell_type2 <span class="op">=</span> <span class="va">deng_SCE</span><span class="op">$</span><span class="va">cell_type2</span>,</span>
+<span>                  slingPseudotime_2 <span class="op">=</span> <span class="va">sce</span><span class="op">$</span><span class="va">slingPseudotime_2</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">slingPseudotime_2</span>, y <span class="op">=</span> <span class="va">cell_type2</span>,</span>
+<span>        colour <span class="op">=</span> <span class="va">cell_type2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggbeeswarm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_quasirandom.html">geom_quasirandom</a></span><span class="op">(</span>groupOnX <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Slingshot pseudotime"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Timepoint"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Cells ordered by Slingshot pseudotime"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 134 rows containing missing values (position_quasirandom).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="day3-3_trajectory_analysis_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Particularly the later stages, separation seems to improve. Since we have included the Seurat clustering, we can plot the PCA, with colors according to these clusters:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-21_248c3c8788b75e1bf6eccc37dcd78d29">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">PCAplot_slingshot</span><span class="op">(</span><span class="va">sce</span>,</span>
+<span>                  variable <span class="op">=</span> <span class="va">deng_SCE</span><span class="op">$</span><span class="va">Seurat_clusters</span>,</span>
+<span>                  type <span class="op">=</span> <span class="st">'lineages'</span>,</span>
+<span>                  col <span class="op">=</span> <span class="st">'black'</span>,</span>
+<span>                  legend <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="day3-3_trajectory_analysis_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">PCAplot_slingshot</span><span class="op">(</span><span class="va">sce</span>,</span>
+<span>                  variable <span class="op">=</span> <span class="va">deng_SCE</span><span class="op">$</span><span class="va">cell_type2</span>,</span>
+<span>                  type <span class="op">=</span> <span class="st">'lineages'</span>,</span>
+<span>                  col <span class="op">=</span> <span class="st">'black'</span>,</span>
+<span>                  legend <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="day3-3_trajectory_analysis_files/figure-html/unnamed-chunk-21-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Instead of providing an initial cluster, think of an end cluster that would fit this trajectory analysis and perform the slingshot analysis. Does slingshot find the initial cluster corresponding to the biological correct situation?</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-22_293c49e0b972324a532b3b492e254bfa">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sce</span> <span class="op">&lt;-</span> <span class="fu">slingshot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/slingshot/man/slingshot.html">slingshot</a></span><span class="op">(</span><span class="va">deng_SCE</span>,</span>
+<span>                             clusterLabels <span class="op">=</span> <span class="st">'Seurat_clusters'</span>,</span>
+<span>                             reducedDim <span class="op">=</span> <span class="st">'PCA'</span>,</span>
+<span>                             end.clus <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"0"</span>, <span class="st">"3"</span>, <span class="st">"5"</span><span class="op">)</span><span class="op">)</span> <span class="co">## check which would be the best according to bio</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Clear your environment:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-23_21e0fa185d971e72fb571e14532f79d2">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/gc.html">gc</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">.rs.restartR</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="trajectory-analysis-with-monocle3" class="level3"><h3 class="anchored" data-anchor-id="trajectory-analysis-with-monocle3">Trajectory analysis with <code>monocle3</code>
+</h3>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Not on the cloud server
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Currently it’s not possible to use the interactive part of <code>monocole3</code> on the cloud server. Therefore, these exercises can <strong>only be performed locally</strong>.</p>
+</div>
+</div>
+<p>This part showcases how you can use <code>monocle3</code> to perform a trajectory analysis. First load the <code>seu_int</code> dataset:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-24_7a7a7f5bb3953cdadc6b7fb4f29809b8">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"seu_day2-4.rds"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Load the required package into your environment:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-25_b53ee782b543e76237e971c1c2518229">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">monocle3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Generate a <code>monocle3</code> object (with class <code>cell_data_set</code>) from our <code>Seurat</code> object:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-26_d146cc14b70e8f4e0399ebb36fe9c668">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># get matrix and filter for minimum number of cells and features (the latter is a fix for backward compatibility)</span></span>
+<span><span class="va">mat_tmp</span> <span class="op">&lt;-</span> <span class="va">seu_int</span><span class="op">@</span><span class="va">assays</span><span class="op">$</span><span class="va">RNA</span><span class="op">@</span><span class="va">counts</span></span>
+<span><span class="va">seu_tmp</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/CreateSeuratObject.html">CreateSeuratObject</a></span><span class="op">(</span><span class="va">mat_tmp</span>, min.cells <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>                                      min.features <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">feature_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">seu_tmp</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">feature_names</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">seu_tmp</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">feature_names</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"gene_short_name"</span></span>
+<span></span>
+<span><span class="va">seu_int_monocl</span> <span class="op">&lt;-</span> <span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/new_cell_data_set.html">new_cell_data_set</a></span><span class="op">(</span><span class="va">seu_tmp</span><span class="op">@</span><span class="va">assays</span><span class="op">$</span><span class="va">RNA</span><span class="op">@</span><span class="va">counts</span>,</span>
+<span>                                              cell_metadata <span class="op">=</span> <span class="va">seu_int</span><span class="op">@</span><span class="va">meta.data</span>,</span>
+<span>                                              gene_metadata <span class="op">=</span> <span class="va">feature_names</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We pre-process the newly created object. What does it involve? Check:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-27_c3902b65e2f443c5ba0aee424d04367d">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">preprocess_cds</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Preprocess the dataset:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-28_31b8f3c58bc23185019751438cb2887d">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int_monocl</span> <span class="op">&lt;-</span> <span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/preprocess_cds.html">preprocess_cds</a></span><span class="op">(</span><span class="va">seu_int_monocl</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And check out the elbow plot:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-29_b622ac4d51c997dd1a83b2883b83dc72">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/plot_pc_variance_explained.html">plot_pc_variance_explained</a></span><span class="op">(</span><span class="va">seu_int_monocl</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Perform UMAP using the implementation in the <code>monocle3</code> package and its default parameters:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-30_01fa4af472762250129d584a6303f173">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int_monocl</span> <span class="op">&lt;-</span> <span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/reduce_dimension.html">reduce_dimension</a></span><span class="op">(</span><span class="va">seu_int_monocl</span>, reduction_method <span class="op">=</span> <span class="st">"UMAP"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Plot the <code>monocle3</code> UMAP coloring cells according to the cluster ID ran with <code>Seurat</code>:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-31_b6a2c6374371d91918f23bfc222ee866">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/plot_cells.html">plot_cells</a></span><span class="op">(</span><span class="va">seu_int_monocl</span>, </span>
+<span>                     color_cells_by <span class="op">=</span> <span class="st">"integrated_snn_res.0.3"</span>, </span>
+<span>                     cell_size <span class="op">=</span> <span class="fl">1</span>, </span>
+<span>                     show_trajectory_graph <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/plot_cells.html">plot_cells</a></span><span class="op">(</span><span class="va">seu_int_monocl</span>, genes <span class="op">=</span> <span class="st">"CD79A"</span>, </span>
+<span>                     show_trajectory_graph <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>                     cell_size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<figure class="figure"><img src="../assets/images/umap_monocle.png" width="500" class="figure-img"></figure><figure class="figure"><img src="../assets/images/umap_monocle_CD79A.png" width="500" class="figure-img"></figure><p>Cluster cells using <code>monocle3</code>’s clustering function:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-32_2ebfb760b29e596d6309b82647ff55c4">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int_monocl</span> <span class="op">&lt;-</span> <span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/cluster_cells.html">cluster_cells</a></span><span class="op">(</span><span class="va">seu_int_monocl</span>, resolution<span class="op">=</span><span class="fl">0.00025</span><span class="op">)</span></span>
+<span><span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/plot_cells.html">plot_cells</a></span><span class="op">(</span><span class="va">seu_int_monocl</span>, label_cell_groups <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<figure class="figure"><img src="../assets/images/umap_monocle3_clustered.png" width="500" class="figure-img"></figure><p>learn graph (i.e.&nbsp;identify trajectory) using <code>monocle3</code> UMAP and clustering:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-33_0d45e3e7baf38be40e0aff68d4efd3c6">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int_monocl</span> <span class="op">&lt;-</span> <span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/learn_graph.html">learn_graph</a></span><span class="op">(</span><span class="va">seu_int_monocl</span><span class="op">)</span></span>
+<span><span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/plot_cells.html">plot_cells</a></span><span class="op">(</span><span class="va">seu_int_monocl</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<figure class="figure"><img src="../assets/images/umap_monocle_trajectory.png" width="500" class="figure-img"></figure><div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Find the CD34+ B-cell cluster in the monocle UMAP. This cluster has a high expressession of CD79A and expresses CD34.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-34_38079e9f33cbd2b0cb7c4b139d0ba86e">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/plot_cells.html">plot_cells</a></span><span class="op">(</span><span class="va">seu_int_monocl</span>, genes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CD79A"</span>, <span class="st">"CD34"</span><span class="op">)</span>,</span>
+<span>                 show_trajectory_graph <span class="op">=</span> <span class="cn">FALSE</span>, </span>
+<span>                 cell_size <span class="op">=</span> <span class="fl">0.7</span>, group_label_size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Returns:</p>
+<figure class="figure"><img src="../assets/images/umap_bcell_cd34plus.png" width="800" class="figure-img"></figure><p>The left part of cluster 7 has both a high expression of CD79A and CD34.</p>
+</div>
+</div>
+</div>
+<p>Select the “initial” cells in the B-cell cluster to calculate pseudotime. The initial cells in this case are the CD34+ B-cells we have just identified. A pop up window will open and you need to click on the “initial” cells (one node per trajectory), then click “Done”.</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-35_fc6c1b2364aabdff899275f1ee42f24c">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int_monocl</span><span class="op">&lt;-</span><span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/order_cells.html">order_cells</a></span><span class="op">(</span><span class="va">seu_int_monocl</span><span class="op">)</span><span class="co">#</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-36_2d2f80d25f162a8c0bc8e42627c96003">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">monocle3</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/plot_cells.html">plot_cells</a></span><span class="op">(</span><span class="va">seu_int_monocl</span>,</span>
+<span>           color_cells_by <span class="op">=</span> <span class="st">"pseudotime"</span>,</span>
+<span>           label_cell_groups<span class="op">=</span><span class="cn">F</span>,</span>
+<span>           label_leaves<span class="op">=</span><span class="cn">F</span>,</span>
+<span>           label_branch_points<span class="op">=</span><span class="cn">FALSE</span>,</span>
+<span>           graph_label_size<span class="op">=</span><span class="fl">1.5</span>, cell_size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<figure class="figure"><img src="../assets/images/umap_monocle_pseudotime.png" width="500" class="figure-img"></figure><p>In order to find genes which expression is affected by pseudtime, we first have to isolate the B-cell cluster. Therefore, extract all cells in the B-cell cluster with the interactive <code>choose_cells</code> function:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-37_d6ad1b1d017642ea2764e3d3766d19d1">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seuB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/choose_cells.html">choose_cells</a></span><span class="op">(</span><span class="va">seu_int_monocl</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<figure class="figure"><img src="../assets/images/choose_cells.gif" width="500" class="figure-img"></figure><p>Check whether you have selected the right cells:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-38_c9776412e34decad7f1e85220d78a8e8">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/plot_cells.html">plot_cells</a></span><span class="op">(</span><span class="va">seuB</span>, show_trajectory_graph <span class="op">=</span> <span class="cn">FALSE</span>, cell_size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can use the cells in this trajectory to test which genes are affected by the trajectory:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-39_3cf756a7090ce5db69e397590d393d0b">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pr_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/graph_test.html">graph_test</a></span><span class="op">(</span><span class="va">seuB</span>, </span>
+<span>                      cores<span class="op">=</span><span class="fl">4</span>, </span>
+<span>                      neighbor_graph <span class="op">=</span> <span class="st">"principal_graph"</span><span class="op">)</span></span>
+<span><span class="co"># order by test statistic</span></span>
+<span><span class="va">pr_test</span> <span class="op">&lt;-</span> <span class="va">pr_test</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">pr_test</span><span class="op">$</span><span class="va">morans_test_statistic</span>, </span>
+<span>                         decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">pr_test</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are some interesting genes in there, for example related to cell cycling (MKI67, CKS2), related to B-cell development (CD34, MS4A1) and immunoglobulins (IGLL1 and IGLL5). We can plot those in the UMAP:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-40_facc80500fd7cfcf3131bc341422d70b">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">goi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CD34"</span>, <span class="st">"MS4A1"</span>, <span class="st">"IGLL1"</span>, <span class="st">"IGLL5"</span>, </span>
+<span>         <span class="st">"MKI67"</span>, <span class="st">"CKS2"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/plot_cells.html">plot_cells</a></span><span class="op">(</span><span class="va">seuB</span>, label_cell_groups<span class="op">=</span><span class="cn">FALSE</span>, genes <span class="op">=</span> <span class="va">goi</span>,</span>
+<span>           show_trajectory_graph<span class="op">=</span><span class="cn">FALSE</span>, cell_size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<figure class="figure"><img src="../assets/images/umaps_bcells_goi.png" width="500" class="figure-img"></figure><p>But also against pseudotime:</p>
+<div class="cell" data-hash="day3-3_trajectory_analysis_cache/html/unnamed-chunk-41_ccf49fd195a769067521c3ca1a67caf0">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seuB</span><span class="op">@</span><span class="va">colData</span><span class="op">$</span><span class="va">monocle_cluster</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/clusters.html">clusters</a></span><span class="op">(</span><span class="va">seuB</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/monocle3/man/plot_genes_in_pseudotime.html">plot_genes_in_pseudotime</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">seuB</span>, </span>
+<span>                                <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html">rowData</a></span><span class="op">(</span><span class="va">seuB</span><span class="op">)</span><span class="op">$</span><span class="va">gene_short_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">goi</span><span class="op">)</span>,</span>
+<span>                         min_expr<span class="op">=</span><span class="fl">0.5</span>, color_cells_by <span class="op">=</span> <span class="st">"monocle_cluster"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<figure class="figure"><img src="../assets/images/exp_pseudotime.png" width="500" class="figure-img"></figure>
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
