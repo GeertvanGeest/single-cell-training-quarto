@@ -7,4 +7,5 @@ course_data/
 *figure-html/
 /_*.local
 .Rproj.user
+.Rhistory
 *.rds
