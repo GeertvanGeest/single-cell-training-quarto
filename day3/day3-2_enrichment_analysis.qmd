@@ -89,6 +89,11 @@ The results are stored in the `@result` slot:
 View(tum_vs_norm_go@result)
 ```
 
+```{r}
+#| echo: false
+tum_vs_norm_go@result[, 1:7] |> head() |> knitr::kable()
+```
+
 ::: {.callout-note}
 ## The columns `GeneRatio` and `BgRatio`
 The columns `GeneRatio` and `BgRatio` that are in the `enrichResult` object represent the numbers that are used as input for the Fisher's exact test. 
@@ -120,7 +125,7 @@ View(enr_go@result)
 
 ```{r}
 #| echo: false
-enr_go@result |> knitr::kable()
+enr_go@result[, 1:7] |> head() |> knitr::kable()
 ```
 
 We can quite easily generate a plot called an enrichment map with the `enrichplot` package:
@@ -152,13 +157,16 @@ When using the genes down-regulated in tumor, among the over-represented Hallmar
 
 ```{r}
 #| eval: false
-View(tum_vs_norm_enrich@result[which(tum_vs_norm_enrich@result$p.adjust<0.05),])
+View(tum_vs_norm_enrich@result[tum_vs_norm_enrich@result$p.adjust < 0.05,])
 ```
 
 ```{r}
 #| echo: false
-tum_vs_norm_enrich@result[which(tum_vs_norm_enrich@result$p.adjust<0.05),] |>
+
+tum_vs_norm_enrich@result[tum_vs_norm_enrich@result$p.adjust < 0.05, 1:7] |> 
+  head() |> 
   knitr::kable()
+
 ```
 
 ### Clear environment

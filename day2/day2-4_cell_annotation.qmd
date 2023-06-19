@@ -13,6 +13,7 @@ title: "Cell annotation"
 
 ```{r}
 #| echo: false
+#| output: false
 seu_int <- readRDS("seu_day2-3.rds")
 library(Seurat)
 ```
