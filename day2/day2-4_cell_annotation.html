@@ -185,7 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/sib-swiss/single-cell-training/" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -245,31 +245,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><a href="https://www.sciencedirect.com/science/article/pii/S2001037021000192">Review on automated cell annotation</a></li>
 </ul></section><section id="exercises" class="level2"><h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
-<div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-1_d5c9f6f93234bd8cc8a5c39666e5dc3f">
-<div class="cell-output cell-output-stderr">
-<pre><code>Attaching SeuratObject</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Attaching sp</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'Seurat'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:SummarizedExperiment':
-
-    Assays</code></pre>
-</div>
-</div>
 <p>Load the following packages:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-2_0d79810037c3ae07d95b1198a83a057e">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/LTLA/celldex">celldex</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/LTLA/celldex">celldex</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/LTLA/SingleR">SingleR</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In the last exercise we saw that probably clustering at a resolution of 0.3 gave the most sensible results. Let’s therefore set the default identity of each cell based on this clustering:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-3_ed6eacfc8e9410d84715e3c138129fc8">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html">SetIdent</a></span><span class="op">(</span><span class="va">seu_int</span>, value <span class="op">=</span> <span class="va">seu_int</span><span class="op">$</span><span class="va">integrated_snn_res.0.3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html">SetIdent</a></span><span class="op">(</span><span class="va">seu_int</span>, value <span class="op">=</span> <span class="va">seu_int</span><span class="op">$</span><span class="va">integrated_snn_res.0.3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -286,30 +269,30 @@ Note
 </div>
 <p>During cell annotation we will use the original count data (not the integrated data):</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-4_1d7415beb8294dcc9d4e68f913be4399">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DefaultAssay</span><span class="op">(</span><span class="va">seu_int</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"RNA"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">DefaultAssay</span><span class="op">(</span><span class="va">seu_int</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"RNA"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Based on the UMAP we have generated, we can visualize expression for a gene in each cluster:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-5_6009920a0e2a2b23c9f9891a5d978e76">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html">FeaturePlot</a></span><span class="op">(</span><span class="va">seu_int</span>, <span class="st">"HBA1"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html">FeaturePlot</a></span><span class="op">(</span><span class="va">seu_int</span>, <span class="st">"HBA1"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day2-4_cell_annotation_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Based on expression of sets of genes you can do a manual cell type annotation. If you know the marker genes for some cell types, you can check whether they are up-regulated in one or the other cluster. Here we have some marker genes for two different cell types:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-6_978ff81cd8dbe82cfbc87327df28c7dc">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tcell_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"IL7R"</span>, <span class="st">"LTB"</span>, <span class="st">"TRAC"</span>, <span class="st">"CD3D"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tcell_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"IL7R"</span>, <span class="st">"LTB"</span>, <span class="st">"TRAC"</span>, <span class="st">"CD3D"</span><span class="op">)</span></span>
 <span><span class="va">monocyte_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CD14"</span>, <span class="st">"CST3"</span>, <span class="st">"CD68"</span>, <span class="st">"CTSS"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s have a look at the expression of the four T cell genes:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-7_1fe3a3c4d2008999ed694a19ccbf43cf">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html">FeaturePlot</a></span><span class="op">(</span><span class="va">seu_int</span>, <span class="va">tcell_genes</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html">FeaturePlot</a></span><span class="op">(</span><span class="va">seu_int</span>, <span class="va">tcell_genes</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day2-4_cell_annotation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>These cells are almost all in cluster 0 and 8. Which becomes clearer when looking at the violin plot:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-8_0bd2d76143cb84f4e5939fa5727bc9dd">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html">VlnPlot</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html">VlnPlot</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
 <span>                features <span class="op">=</span> <span class="va">tcell_genes</span>,</span>
 <span>                ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -342,13 +325,13 @@ Answer
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-9_db43c0e74bc78eef56239938b9fcce94">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html">FeaturePlot</a></span><span class="op">(</span><span class="va">seu_int</span>, <span class="va">monocyte_genes</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html">FeaturePlot</a></span><span class="op">(</span><span class="va">seu_int</span>, <span class="va">monocyte_genes</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day2-4_cell_annotation_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-10_799d0ea9b812d5ee3f0be5cabad4cec8">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html">VlnPlot</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html">VlnPlot</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
 <span>                features <span class="op">=</span> <span class="va">monocyte_genes</span>,</span>
 <span>                ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -360,7 +343,7 @@ Answer
 </div>
 <p>We can also automate this with the function <code>AddModuleScore</code>. For each cell, an expression score for a group of genes is calcuated:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-11_d3130f6f6e662f12c0837f6c5c7d86aa">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/AddModuleScore.html">AddModuleScore</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/AddModuleScore.html">AddModuleScore</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
 <span>                              features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">tcell_genes</span><span class="op">)</span>,</span>
 <span>                              name <span class="op">=</span> <span class="st">"tcell_genes"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -394,14 +377,14 @@ Answer
 <p><strong>A.</strong> The new column is called <code>tcell_genes1</code>. It contains the module score for each cell (which is basically the average expression of the set of genes).</p>
 <p><strong>B.</strong> You can plot the UMAP with</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-12_ae64ffc9b74beb79610bfef8cd99539f">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html">FeaturePlot</a></span><span class="op">(</span><span class="va">seu_int</span>, <span class="st">"tcell_genes1"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html">FeaturePlot</a></span><span class="op">(</span><span class="va">seu_int</span>, <span class="st">"tcell_genes1"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day2-4_cell_annotation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Which indeed shows these genes are mainly expressed in clusters 0 and 8:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-13_e18ba80666da9d3c0126e97362711d6d">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html">VlnPlot</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html">VlnPlot</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
 <span>                <span class="st">"tcell_genes1"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day2-4_cell_annotation_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
@@ -414,18 +397,18 @@ Answer
 <p>Based on the same principle, we can also annotate cell cycling state. The function <code>CellCycleScore</code> uses <code>AddModuleScore</code> to get a score for the G2/M and S phase (the mitotic phases in which cell is cycling). In addition, <code>CellCycleScore</code> assigns each cell to either the G2/M, S or G1 phase.</p>
 <p>First we extract the built-in genes for cell cycling:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-14_f07f90ea6047c3296a8b3e50e6a857c0">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">s.genes</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="va"><a href="https://satijalab.org/seurat/reference/cc.genes.updated.2019.html">cc.genes.updated.2019</a></span><span class="op">$</span><span class="va">s.genes</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">s.genes</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="va"><a href="https://satijalab.org/seurat/reference/cc.genes.updated.2019.html">cc.genes.updated.2019</a></span><span class="op">$</span><span class="va">s.genes</span></span>
 <span><span class="va">g2m.genes</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="va"><a href="https://satijalab.org/seurat/reference/cc.genes.updated.2019.html">cc.genes.updated.2019</a></span><span class="op">$</span><span class="va">g2m.genes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we run the function:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-15_5ebba48835b118d303c1375436c34323">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/CellCycleScoring.html">CellCycleScoring</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/CellCycleScoring.html">CellCycleScoring</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
 <span>                                     s.features <span class="op">=</span> <span class="va">s.genes</span>,</span>
 <span>                                     g2m.features <span class="op">=</span> <span class="va">g2m.genes</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And we can visualize the annotations:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-16_60ec07536033555f8acdc775614b924f">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html">DimPlot</a></span><span class="op">(</span><span class="va">seu_int</span>, group.by <span class="op">=</span> <span class="st">"Phase"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html">DimPlot</a></span><span class="op">(</span><span class="va">seu_int</span>, group.by <span class="op">=</span> <span class="st">"Phase"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day2-4_cell_annotation_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -453,7 +436,7 @@ Note
 </h3>
 <p>To do a fully automated annoation, we need a reference dataset of primary cells. Any reference could be used. The package <code>scRNAseq</code> in Bioconductor includes several scRNAseq datasets that can be used as reference to <code>SingleR</code>. One could also use a reference made of bulk RNA seq data. Here we are using the a hematopoietic reference dataset from <code>celldex</code>. Check out what’s in there:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-17_d4840f12e5ce85a6d3a8cb67d33a74b3">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ref</span> <span class="op">&lt;-</span> <span class="fu">celldex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/celldex/man/NovershternHematopoieticData.html">NovershternHematopoieticData</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ref</span> <span class="op">&lt;-</span> <span class="fu">celldex</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/celldex/man/NovershternHematopoieticData.html">NovershternHematopoieticData</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">ref</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">ref</span><span class="op">$</span><span class="va">label.main</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -485,13 +468,13 @@ Note
 </div>
 <p>Now <code>SingleR</code> compares our normalized count data to a reference set, and finds the most probable annation:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-18_4e8184c70fe6a5efdb8559ef2d3ac315">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int_SingleR</span> <span class="op">&lt;-</span> <span class="fu">SingleR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SingleR/man/SingleR.html">SingleR</a></span><span class="op">(</span>test <span class="op">=</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/AssayData.html">GetAssayData</a></span><span class="op">(</span><span class="va">seu_int</span>, slot <span class="op">=</span> <span class="st">"data"</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int_SingleR</span> <span class="op">&lt;-</span> <span class="fu">SingleR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SingleR/man/SingleR.html">SingleR</a></span><span class="op">(</span>test <span class="op">=</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/AssayData.html">GetAssayData</a></span><span class="op">(</span><span class="va">seu_int</span>, slot <span class="op">=</span> <span class="st">"data"</span><span class="op">)</span>,</span>
 <span>                                ref <span class="op">=</span> <span class="va">ref</span>,</span>
 <span>                                labels <span class="op">=</span> <span class="va">ref</span><span class="op">$</span><span class="va">label.main</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>See what’s in there by using <code>head</code>:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-19_787be8932c7cfa9051e31e1f0fe27208">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">seu_int_SingleR</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">seu_int_SingleR</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>DataFrame with 6 rows and 5 columns
                                                    scores    first.labels
@@ -514,13 +497,13 @@ PBMMC-1_AAAGCAACATCAGTCA-1 0.323945:0.2182315 Erythroid cells Erythroid cells</c
 </div>
 <p>Visualize singleR score quality scores:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-20_3cd20920b09e4793a69b16597f0e595e">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">SingleR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SingleR/man/plotScoreHeatmap.html">plotScoreHeatmap</a></span><span class="op">(</span><span class="va">seu_int_SingleR</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">SingleR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SingleR/man/plotScoreHeatmap.html">plotScoreHeatmap</a></span><span class="op">(</span><span class="va">seu_int_SingleR</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day2-4_cell_annotation_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-21_e67daaf057b5b9fbc50ed6565abcadb7">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">SingleR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SingleR/man/plotDeltaDistribution.html">plotDeltaDistribution</a></span><span class="op">(</span><span class="va">seu_int_SingleR</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">SingleR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SingleR/man/plotDeltaDistribution.html">plotDeltaDistribution</a></span><span class="op">(</span><span class="va">seu_int_SingleR</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Groups with fewer than two data points have been dropped.</code></pre>
 </div>
@@ -537,25 +520,25 @@ replacement has 1 row, data has 0</code></pre>
 </div>
 <p>There are some annotations that contain only a few cells. They are usually not of interest, and they clogg our plots. Therefore we remove them from the annotation:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-22_9ba1611b38a92338922596f8aa24ef2b">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">singleR_labels</span> <span class="op">&lt;-</span> <span class="va">seu_int_SingleR</span><span class="op">$</span><span class="va">labels</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">singleR_labels</span> <span class="op">&lt;-</span> <span class="va">seu_int_SingleR</span><span class="op">$</span><span class="va">labels</span></span>
 <span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">singleR_labels</span><span class="op">)</span></span>
 <span><span class="va">other</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span><span class="op">[</span><span class="va">t</span> <span class="op">&lt;</span> <span class="fl">10</span><span class="op">]</span></span>
 <span><span class="va">singleR_labels</span><span class="op">[</span><span class="va">singleR_labels</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">other</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"none"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In order to visualize it in our UMAP, we have to add the annotation to <code>seu_int@meta.data</code>:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-23_2ea16919acfa3f75fa08b7207afea435">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int</span><span class="op">$</span><span class="va">SingleR_annot</span> <span class="op">&lt;-</span> <span class="va">singleR_labels</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int</span><span class="op">$</span><span class="va">SingleR_annot</span> <span class="op">&lt;-</span> <span class="va">singleR_labels</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can plot the annotations in the UMAP. Here, we use a different package for plotting (<code>dittoSeq</code>) as it has a bit better default coloring, and some other plotting functionality we will use later on.</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-24_84a1f90a861f3d21248a368e6be939a6">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dittoSeq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dittoSeq/man/dittoDimPlot.html">dittoDimPlot</a></span><span class="op">(</span><span class="va">seu_int</span>, <span class="st">"SingleR_annot"</span>, size <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dittoSeq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dittoSeq/man/dittoDimPlot.html">dittoDimPlot</a></span><span class="op">(</span><span class="va">seu_int</span>, <span class="st">"SingleR_annot"</span>, size <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day2-4_cell_annotation_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We can check out how many cells per sample we have for each annotated cell type:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-25_0e47eb36bf8346d7a05eb4e086873ab2">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dittoSeq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dittoSeq/man/dittoBarPlot.html">dittoBarPlot</a></span><span class="op">(</span><span class="va">seu_int</span>, var <span class="op">=</span> <span class="st">"SingleR_annot"</span>, group.by <span class="op">=</span> <span class="st">"orig.ident"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dittoSeq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dittoSeq/man/dittoBarPlot.html">dittoBarPlot</a></span><span class="op">(</span><span class="va">seu_int</span>, var <span class="op">=</span> <span class="st">"SingleR_annot"</span>, group.by <span class="op">=</span> <span class="st">"orig.ident"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day2-4_cell_annotation_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -590,7 +573,7 @@ Answer
 <div class="callout-body-container callout-body">
 <p>We can have a look at the mean module score for each <code>SingleR</code> annotation like this:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-26_a7c9a4d5d606c5d5e20d55f5f339544b">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dittoSeq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dittoSeq/man/dittoBarPlot.html">dittoBarPlot</a></span><span class="op">(</span><span class="va">seu_int</span>, </span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dittoSeq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dittoSeq/man/dittoBarPlot.html">dittoBarPlot</a></span><span class="op">(</span><span class="va">seu_int</span>, </span>
 <span>                   var <span class="op">=</span> <span class="st">"SingleR_annot"</span>, </span>
 <span>                   group.by <span class="op">=</span> <span class="st">"integrated_snn_res.0.3"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -604,11 +587,11 @@ Answer
 </section><section id="save-the-dataset-and-clear-environment" class="level3"><h3 class="anchored" data-anchor-id="save-the-dataset-and-clear-environment">Save the dataset and clear environment</h3>
 <p>Now, save the dataset so you can use it tomorrow:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-27_64e90ad0784deb563eab84b480289bf1">
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">seu_int</span>, <span class="st">"seu_day2-4.rds"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">seu_int</span>, <span class="st">"seu_day2-4.rds"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Clear your environment:</p>
 <div class="cell" data-hash="day2-4_cell_annotation_cache/html/unnamed-chunk-28_b8ca9399755074e44379564937480873">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/gc.html">gc</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">.rs.restartR</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
