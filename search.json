@@ -32,14 +32,14 @@
     "href": "day3/day3-3_trajectory_analysis.html",
     "title": "Trajectory analysis",
     "section": "",
-    "text": "Download the presentation\n\n\nslingshot vignette\n\nmonocle3"
+    "text": "Download the presentation \n\n\nslingshot vignette\n\nmonocle3"
   },
   {
     "objectID": "day3/day3-3_trajectory_analysis.html#material",
     "href": "day3/day3-3_trajectory_analysis.html#material",
     "title": "Trajectory analysis",
     "section": "",
-    "text": "Download the presentation\n\n\nslingshot vignette\n\nmonocle3"
+    "text": "Download the presentation \n\n\nslingshot vignette\n\nmonocle3"
   },
   {
     "objectID": "day3/day3-3_trajectory_analysis.html#exercises",
@@ -67,14 +67,14 @@
     "href": "day3/day3-1_differential_gene_expression.html",
     "title": "Differential gene expression",
     "section": "",
-    "text": "Download the presentation{: .md-button }\n\nMore information on pseudobulk analysis\n\n\nMuscat for pseudobulk DGE.\n\nPaper on the robustness of different differential expression analysis methods"
+    "text": "Download the presentation \n\nMore information on pseudobulk analysis\n\n\nMuscat for pseudobulk DGE.\n\nPaper on the robustness of different differential expression analysis methods"
   },
   {
     "objectID": "day3/day3-1_differential_gene_expression.html#material",
     "href": "day3/day3-1_differential_gene_expression.html#material",
     "title": "Differential gene expression",
     "section": "",
-    "text": "Download the presentation{: .md-button }\n\nMore information on pseudobulk analysis\n\n\nMuscat for pseudobulk DGE.\n\nPaper on the robustness of different differential expression analysis methods"
+    "text": "Download the presentation \n\nMore information on pseudobulk analysis\n\n\nMuscat for pseudobulk DGE.\n\nPaper on the robustness of different differential expression analysis methods"
   },
   {
     "objectID": "day3/day3-1_differential_gene_expression.html#exercises",
@@ -88,14 +88,14 @@
     "href": "day2/day2-3_clustering.html",
     "title": "Clustering",
     "section": "",
-    "text": "Download the presentation\n\nEvaluation of clustering methods"
+    "text": "Download the presentation \n\nEvaluation of clustering methods"
   },
   {
     "objectID": "day2/day2-3_clustering.html#material",
     "href": "day2/day2-3_clustering.html#material",
     "title": "Clustering",
     "section": "",
-    "text": "Download the presentation\n\nEvaluation of clustering methods"
+    "text": "Download the presentation \n\nEvaluation of clustering methods"
   },
   {
     "objectID": "day2/day2-3_clustering.html#exercises",
@@ -109,14 +109,14 @@
     "href": "day2/day2-1_dimensionality_reduction.html",
     "title": "Dimensionality reduction",
     "section": "",
-    "text": "Download the presentation\n\nMaking sense of PCA\n\nUnderstanding t-SNE\n\n\nt-SNE explained by Josh Starmer\nUnderstanding UMAP\n\n\nVideo by one of the UMAP authors\nMore info on UMAP parameters\nWe can generate heatmaps according to their principal component scores calculated in the rotation matrix:\nSeurat::DimHeatmap(seu, dims = 1:12, cells = 500, balanced = TRUE)\nThe elbowplot can help you in determining how many PCs to use for downstream analysis such as UMAP:\nSeurat::ElbowPlot(seu, ndims = 40)\nThe elbow plot ranks principle components based on the percentage of variance explained by each one. Where we observe an “elbow” or flattening curve, the majority of true signal is captured by this number of PCs, eg around 25 PCs for the seu dataset.\nIncluding too many PCs usually does not affect much the result, while including too few PCs can affect the results very much.\nUMAP: The goal of these algorithms is to learn the underlying manifold of the data in order to place similar cells together in low-dimensional space.\nseu &lt;- Seurat::RunUMAP(seu, dims = 1:25)\nTo view the UMAP plot:\nSeurat::DimPlot(seu, reduction = \"umap\")"
+    "text": "Download the presentation \n\nMaking sense of PCA\n\nUnderstanding t-SNE\n\n\nt-SNE explained by Josh Starmer\nUnderstanding UMAP\n\n\nVideo by one of the UMAP authors\nMore info on UMAP parameters\nWe can generate heatmaps according to their principal component scores calculated in the rotation matrix:\nSeurat::DimHeatmap(seu, dims = 1:12, cells = 500, balanced = TRUE)\nThe elbowplot can help you in determining how many PCs to use for downstream analysis such as UMAP:\nSeurat::ElbowPlot(seu, ndims = 40)\nThe elbow plot ranks principle components based on the percentage of variance explained by each one. Where we observe an “elbow” or flattening curve, the majority of true signal is captured by this number of PCs, eg around 25 PCs for the seu dataset.\nIncluding too many PCs usually does not affect much the result, while including too few PCs can affect the results very much.\nUMAP: The goal of these algorithms is to learn the underlying manifold of the data in order to place similar cells together in low-dimensional space.\nseu &lt;- Seurat::RunUMAP(seu, dims = 1:25)\nTo view the UMAP plot:\nSeurat::DimPlot(seu, reduction = \"umap\")"
   },
   {
     "objectID": "day2/day2-1_dimensionality_reduction.html#material",
     "href": "day2/day2-1_dimensionality_reduction.html#material",
     "title": "Dimensionality reduction",
     "section": "",
-    "text": "Download the presentation\n\nMaking sense of PCA\n\nUnderstanding t-SNE\n\n\nt-SNE explained by Josh Starmer\nUnderstanding UMAP\n\n\nVideo by one of the UMAP authors\nMore info on UMAP parameters"
+    "text": "Download the presentation \n\nMaking sense of PCA\n\nUnderstanding t-SNE\n\n\nt-SNE explained by Josh Starmer\nUnderstanding UMAP\n\n\nVideo by one of the UMAP authors\nMore info on UMAP parameters"
   },
   {
     "objectID": "day2/day2-1_dimensionality_reduction.html#exercises",
@@ -151,14 +151,14 @@
     "href": "day2/day2-4_cell_annotation.html",
     "title": "Cell annotation",
     "section": "",
-    "text": "Download the presentation\n\nReview on automated cell annotation"
+    "text": "Download the presentation \n\nReview on automated cell annotation"
   },
   {
     "objectID": "day2/day2-4_cell_annotation.html#material",
     "href": "day2/day2-4_cell_annotation.html#material",
     "title": "Cell annotation",
     "section": "",
-    "text": "Download the presentation\n\nReview on automated cell annotation"
+    "text": "Download the presentation \n\nReview on automated cell annotation"
   },
   {
     "objectID": "day2/day2-4_cell_annotation.html#exercises",
@@ -298,7 +298,7 @@
     "href": "day1/day1-2_analysis_tools_qc.html#material",
     "title": "Analysis tools and QC",
     "section": "Material",
-    "text": "Material\nDownload the presentation"
+    "text": "Material\n Download the presentation"
   },
   {
     "objectID": "day1/day1-2_analysis_tools_qc.html#exercises",
