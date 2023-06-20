@@ -5,7 +5,7 @@ title: "Cell annotation"
 
 ## Material
 
-[Download the presentation](../assets/pdf/cell_type_annotation.pdf)
+{{< downloadthis ../assets/pdf/cell_type_annotation.pdf dname="cell_type_annotation" label="Download the presentation" icon="filetype-pdf" >}}
 
 - [Review on automated cell annotation](https://www.sciencedirect.com/science/article/pii/S2001037021000192)
 

@@ -5,7 +5,7 @@ engine: knitr
 
 ## Material
 
-[Download the presentation](../assets/pdf/introduction.pdf)
+{{< downloadthis ../assets/pdf/introduction.pdf dname="introduction" label="Download the presentation" icon="filetype-pdf" >}}
 
 ## Exercises
 

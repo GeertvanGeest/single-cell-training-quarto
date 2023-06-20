@@ -20,7 +20,7 @@ title: "Analysis tools and QC"
 
 ## Material
 
-[Download the presentation](../assets/pdf/analysis_tools_qc.pdf)
+{{< downloadthis ../assets/pdf/analysis_tools_qc.pdf dname="analysis_tools_qc" label="Download the presentation" icon="filetype-pdf" >}}
 
 ## Exercises
 

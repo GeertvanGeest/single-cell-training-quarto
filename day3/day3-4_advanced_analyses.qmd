@@ -5,4 +5,4 @@ title: "Advanced analyses"
 
 ## Material
 
-[Download the presentation](../assets/pdf/Miscellanous.pdf)
+{{< downloadthis ../assets/pdf/Miscellanous.pdf dname="Miscellanous" label="Download the presentation" icon="filetype-pdf" >}}

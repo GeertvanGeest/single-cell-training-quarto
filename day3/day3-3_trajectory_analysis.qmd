@@ -5,7 +5,7 @@ title: "Trajectory analysis"
 
 ## Material
 
-[Download the presentation](../assets/pdf/Trajectories.pdf)
+{{< downloadthis ../assets/pdf/Trajectories.pdf dname="Trajectories" label="Download the presentation" icon="filetype-pdf" >}}
 
 - `slingshot` [vignette](https://www.bioconductor.org/packages/release/bioc/vignettes/slingshot/inst/doc/vignette.html)
 - [`monocle3`](https://cole-trapnell-lab.github.io/monocle3/)

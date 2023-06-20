@@ -4,7 +4,7 @@ title: "Differential gene expression"
 
 ## Material
 
-[Download the presentation](../assets/pdf/DGE_and_enrichment_analysis.pdf){: .md-button }
+{{< downloadthis ../assets/pdf/DGE_and_enrichment_analysis.pdf dname="DGE_and_enrichment_analysis" label="Download the presentation" icon="filetype-pdf" >}}
 
 -   More information on [pseudobulk analysis](https://bioconductor.org/books/release/OSCA/multi-sample-comparisons.html#differential-expression-between-condition)
 -   [Muscat](https://bioconductor.org/packages/devel/bioc/vignettes/muscat/inst/doc/analysis.html) for pseudobulk DGE.
@@ -82,18 +82,15 @@ tcell_genes <- c("IL7R", "LTB", "TRAC", "CD3D")
 ```
 :::
 
-::: {.callout-tip collapse="true"} 
+::: {.callout-tip collapse="true"}
 ## Answer
 
 ```{r}
 de_genes[de_genes$gene %in% tcell_genes,] |> knitr::kable()
 ```
 
-So, yes, the T-cell genes are highly significant markers for cluster 0 and 8. 
-
+So, yes, the T-cell genes are highly significant markers for cluster 0 and 8.
 :::
-
-
 
 ### Differential expression between groups of cells
 
