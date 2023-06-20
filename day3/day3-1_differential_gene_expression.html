@@ -256,30 +256,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"seu_day2-4.rds"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And load the following packages (install them if they are missing):</p>
-<div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-2_c4fb55a82874b597e18aefd6db87bdc5">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat">Seurat</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Attaching SeuratObject</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Attaching sp</code></pre>
-</div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://bioinf.wehi.edu.au/edgeR">edgeR</a></span><span class="op">)</span> <span class="co"># BiocManager::install("edgeR")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'edgeR' was built under R version 4.2.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: limma</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'limma' was built under R version 4.2.1</code></pre>
-</div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://bioinf.wehi.edu.au/limma">limma</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-2_d5d8b878b2719bd4997b3131c2bfeca8">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat">Seurat</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://bioinf.wehi.edu.au/edgeR">edgeR</a></span><span class="op">)</span> <span class="co"># BiocManager::install("edgeR")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://bioinf.wehi.edu.au/limma">limma</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">scuttle</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The function <code>FindAllMarkers</code> performs a Wilcoxon plot to determine the genes differentially expressed between each cluster and the rest of the cells. Other types of tests than the Wilcoxon test are available. Check it out by running <code><a href="https://satijalab.org/seurat/reference/FindAllMarkers.html">?Seurat::FindAllMarkers</a></code>.</p>
 <p>Now run analysis:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-3_d3cb1a81c81451907d0cbbd051972231">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">de_genes</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FindAllMarkers.html">FindAllMarkers</a></span><span class="op">(</span><span class="va">seu_int</span>,  min.pct <span class="op">=</span> <span class="fl">0.25</span>,</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">de_genes</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FindAllMarkers.html">FindAllMarkers</a></span><span class="op">(</span><span class="va">seu_int</span>,  min.pct <span class="op">=</span> <span class="fl">0.25</span>,</span>
 <span>                                   only.pos <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -288,41 +275,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Time for coffee
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>##Time for coffee This takes a while. Have a break.</p>
+<p>This takes a while. Have a break.</p>
 </div>
 </div>
 <p>Subset the table to only keep the significant genes, and you can save it as a csv file if you wish to explore it further. Then extract the top 3 markers per cluster:</p>
-<div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-4_2f1f07d37822c20080593e134480d03f">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">de_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">de_genes</span>, <span class="va">de_genes</span><span class="op">$</span><span class="va">p_val_adj</span><span class="op">&lt;</span><span class="fl">0.05</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">de_genes</span>, <span class="st">"de_genes_FindAllMarkers.csv"</span>, row.names <span class="op">=</span> <span class="cn">F</span>, quote <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-4_100f084b6ed2c9f86532f2719f1ea00a">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">de_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">de_genes</span>, <span class="va">de_genes</span><span class="op">$</span><span class="va">p_val_adj</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">de_genes</span>,</span>
+<span>          <span class="st">"de_genes_FindAllMarkers.csv"</span>,</span>
+<span>          row.names <span class="op">=</span> <span class="cn">F</span>, quote <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span></span>
-<span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">top_specific_markers</span> <span class="op">&lt;-</span> <span class="va">de_genes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">top_specific_markers</span> <span class="op">&lt;-</span> <span class="va">de_genes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">cluster</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/top_n.html">top_n</a></span><span class="op">(</span><span class="fl">3</span>, <span class="va">avg_log2FC</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And generate e.g.&nbsp;a dotplot:</p>
-<div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-5_3ecb2029ebcb46ae31a0139a4a4befc3">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dittoSeq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dittoSeq/man/dittoDotPlot.html">dittoDotPlot</a></span><span class="op">(</span><span class="va">seu_int</span>, vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">top_specific_markers</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span>, </span>
+<div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-5_0e8c238f52982dc2ed76da1a09cbf8f6">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dittoSeq</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dittoSeq/man/dittoDotPlot.html">dittoDotPlot</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
+<span>                       vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">top_specific_markers</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span>, </span>
 <span>                       group.by <span class="op">=</span> <span class="st">"integrated_snn_res.0.3"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day3-1_differential_gene_expression_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
@@ -344,12 +318,23 @@ Exercise
 <div class="callout-hint">
 <p>You can re-load the vector with immune genes with:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-6_732b0cc554e2913afa219a2dbfc2d272">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tcell_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"IL7R"</span>, <span class="st">"LTB"</span>, <span class="st">"TRAC"</span>, <span class="st">"CD3D"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tcell_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"IL7R"</span>, <span class="st">"LTB"</span>, <span class="st">"TRAC"</span>, <span class="st">"CD3D"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>::: {.callout-tip collapse = “true”} ## Answer</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-7_457614cc311b7b22851d7cf1b5d864ab">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">de_genes</span><span class="op">[</span><span class="va">de_genes</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">tcell_genes</span>,<span class="op">]</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">de_genes</span><span class="op">[</span><span class="va">de_genes</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">tcell_genes</span>,<span class="op">]</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead><tr class="header">
@@ -467,16 +452,19 @@ Exercise
 </table>
 </div>
 </div>
-<p>So, yes, the T-cell genes are highly significant markers for cluster 0 and 8. :::</p>
+<p>So, yes, the T-cell genes are highly significant markers for cluster 0 and 8.</p>
+</div>
+</div>
+</div>
 </section><section id="differential-expression-between-groups-of-cells" class="level3"><h3 class="anchored" data-anchor-id="differential-expression-between-groups-of-cells">Differential expression between groups of cells</h3>
 <p>The <code>FindMarkers</code> function allows to test for differential gene expression analysis specifically between 2 groups of cells, i.e.&nbsp;perform pairwise comparisons, eg between cells of cluster 0 vs cluster 2, or between cells annotated as T-cells and B-cells.</p>
 <p>First we can set the default cell identity to the cell types defined by <code>SingleR</code>:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-8_122da6ea62d1fc098932cfbdf42b2e32">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html">SetIdent</a></span><span class="op">(</span><span class="va">seu_int</span>, value <span class="op">=</span> <span class="st">"SingleR_annot"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seu_int</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html">SetIdent</a></span><span class="op">(</span><span class="va">seu_int</span>, value <span class="op">=</span> <span class="st">"SingleR_annot"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Run the differential gene expression analysis and subset the table to keep the significant genes:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-9_7bcf072a6e1750c10c355f7795379635">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deg_cd8_cd4</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FindMarkers.html">FindMarkers</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deg_cd8_cd4</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FindMarkers.html">FindMarkers</a></span><span class="op">(</span><span class="va">seu_int</span>,</span>
 <span>                                   ident.1 <span class="op">=</span> <span class="st">"CD8+ T cells"</span>,</span>
 <span>                                   ident.2 <span class="op">=</span> <span class="st">"CD4+ T cells"</span>,</span>
 <span>                                   group.by <span class="op">=</span> <span class="va">seu_int</span><span class="op">$</span><span class="va">SingleR_annot</span>,</span>
@@ -497,7 +485,7 @@ Exercise
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -506,11 +494,11 @@ Answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You can check out the results with:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-10_4f6249637b5c6b01feab476c3dbdc316">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">deg_cd8_cd4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">deg_cd8_cd4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-11_3879d79add28d336609ee92dd5c923e0">
 <div class="cell-output-display">
@@ -1166,7 +1154,7 @@ Answer
 </blockquote>
 <p>To view CD8A, CD8B and CD4:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-12_1a76d680a333a37f0d572651b7775315">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deg_cd8_cd4</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CD4"</span>, <span class="st">"CD8A"</span>, <span class="st">"CD8B"</span><span class="op">)</span>,<span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deg_cd8_cd4</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CD4"</span>, <span class="st">"CD8A"</span>, <span class="st">"CD8B"</span><span class="op">)</span>,<span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            p_val avg_log2FC pct.1 pct.2    p_val_adj
 CD4  1.070126e-13 -0.4000835 0.012 0.103 1.998246e-09
@@ -1177,7 +1165,7 @@ CD8B 7.113148e-36  0.8536693 0.479 0.177 1.328238e-31</code></pre>
 <p>Indeed, because we compared ident.1 = “CD8+ T cells” to ident.2 = “CD4+ T cells”, a negative log2FC for the CD4 gene indicates a lower expression in CD8+ T-cells than in CD4+ T-cells, while a positive log2FC for the CD8A and CD8B genes indicates a higher expression in CD8+ T-cells.</p>
 <p>Plotting the genes in these two T-cell groups only:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-13_1fcd2cf45e006ffa1af0361b75da73fc">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html">VlnPlot</a></span><span class="op">(</span><span class="va">seu_int</span>, </span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html">VlnPlot</a></span><span class="op">(</span><span class="va">seu_int</span>, </span>
 <span>            features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CD4"</span>, <span class="st">"CD8A"</span>, <span class="st">"CD8B"</span><span class="op">)</span>,</span>
 <span>            idents <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CD8+ T cells"</span>, <span class="st">"CD4+ T cells"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1207,19 +1195,19 @@ Warning
 </div>
 <p>We can load the object and explore its UMAP and meta.data like this:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-14_aa69c99e5e8e4f3cf43da9b078d8ecc3">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">proB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"course_data/proB.rds"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">proB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"course_data/proB.rds"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html">DimPlot</a></span><span class="op">(</span><span class="va">proB</span>, group.by <span class="op">=</span> <span class="st">"orig.ident"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day3-1_differential_gene_expression_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">proB</span><span class="op">@</span><span class="va">meta.data</span><span class="op">$</span><span class="va">type</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">proB</span><span class="op">@</span><span class="va">meta.data</span><span class="op">$</span><span class="va">type</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ETV6-RUNX1      PBMMC 
       2000       1021 </code></pre>
 </div>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># ETV6-RUNX1      PBMMC </span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># ETV6-RUNX1      PBMMC </span></span>
 <span><span class="co">#      2000       1021</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">proB</span><span class="op">@</span><span class="va">meta.data</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1255,12 +1243,12 @@ Note
 </div>
 <p>Since we will start with differential gene expression, we set the default assay back to “RNA”. Also, we set the default identity to the cell type:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-15_8574dcd10bceea835b1617f73efafba7">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/DefaultAssay.html">DefaultAssay</a></span><span class="op">(</span><span class="va">proB</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"RNA"</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/DefaultAssay.html">DefaultAssay</a></span><span class="op">(</span><span class="va">proB</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"RNA"</span></span>
 <span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html">Idents</a></span><span class="op">(</span><span class="va">proB</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">proB</span><span class="op">$</span><span class="va">orig.ident</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s have a look at the UMAP (again), coloured by celltype:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-16_75c137396e488b8cf7f68089a668dd92">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html">DimPlot</a></span><span class="op">(</span><span class="va">proB</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html">DimPlot</a></span><span class="op">(</span><span class="va">proB</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day3-1_differential_gene_expression_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1281,8 +1269,8 @@ Note
 </div>
 <p>Now we will run differential expression analysis between tumor and healthy cells using the patient ID as a covariate by using <code>limma</code>.</p>
 <p>Prepare the pseudobulk count matrix:</p>
-<div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-17_772a98e1ea320c0445e560dc9da4337a">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#taking the proB data </span></span>
+<div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-17_bb2263ad4c20d5a1e1e1557a6ee6f3c8">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#taking the proB data </span></span>
 <span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/DefaultAssay.html">DefaultAssay</a></span><span class="op">(</span><span class="va">proB</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"RNA"</span></span>
 <span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html">Idents</a></span><span class="op">(</span><span class="va">proB</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">proB</span><span class="op">$</span><span class="va">orig.ident</span></span>
 <span></span>
@@ -1297,15 +1285,13 @@ Note
 <span><span class="co">##first an sce object is needed</span></span>
 <span><span class="va">sce_proB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/as.SingleCellExperiment.html">as.SingleCellExperiment</a></span><span class="op">(</span><span class="va">proB</span><span class="op">)</span></span>
 <span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">scuttle</span><span class="op">)</span></span>
-<span></span>
 <span><span class="co">##aggregateAcrossCells here it is only aggregated by sample, one could imagine</span></span>
 <span><span class="co">##to aggregate by sample and by celltype for instance</span></span>
 <span><span class="va">summed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/scuttle/man/aggregateAcrossCells.html">aggregateAcrossCells</a></span><span class="op">(</span><span class="va">sce_proB</span>, </span>
 <span>                               id<span class="op">=</span><span class="fu">colData</span><span class="op">(</span><span class="va">sce_proB</span><span class="op">)</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sample"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-18_3071cb047846439f17a93f5ff98828e1">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">##have a look at the counts</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">##have a look at the counts</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html">counts</a></span><span class="op">(</span><span class="va">summed</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,<span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             ETV6-RUNX1-1 ETV6-RUNX1-2 ETV6-RUNX1-3 PBMMC-1 PBMMC-2 PBMMC-3
@@ -1313,7 +1299,7 @@ RP11-34P13.7            0            0            0       2       0       0
 FO538757.3              0            0            0       0       0       0
 FO538757.2            138          275           74     129      40     112</code></pre>
 </div>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#have a look at the colData of our new object summed, can you see type and </span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#have a look at the colData of our new object summed, can you see type and </span></span>
 <span><span class="co">#patient.id are there</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu">colData</span><span class="op">(</span><span class="va">summed</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1338,7 +1324,7 @@ PBMMC-3                3 PBMMC-3      PBMMC-3      PBMMC-3            407</code>
 </div>
 <p>Generate a <code>DGEList</code> object to use as input for <code>limma</code> and filter the genes to remove lowly expressed genes. How many are left?</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-19_60d28fbbd9a71aae5c910af853e146b0">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#As in the standard limma analysis generate a DGE object</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#As in the standard limma analysis generate a DGE object</span></span>
 <span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/DGEList.html">DGEList</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html">counts</a></span><span class="op">(</span><span class="va">summed</span><span class="op">)</span>, samples<span class="op">=</span><span class="fu">colData</span><span class="op">(</span><span class="va">summed</span><span class="op">)</span><span class="op">$</span><span class="va">sample</span><span class="op">)</span></span>
 <span></span>
@@ -1355,7 +1341,7 @@ logical   11086   10017 </code></pre>
 </div>
 <p>Generate a design matrix, including patient ID to model for a paired analysis. If you need help to generate a design matrix, check out the very nice <a href="https://bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf">edgeR User Guide</a>, sections 3.3 and 3.4. Extract the sample ID from the meta.data, then create the design matrix:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-20_e79b28ee51b02d96d0b7669c7bc637f3">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Create the design matrix and include the technology as a covariate:</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Create the design matrix and include the technology as a covariate:</span></span>
 <span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="op">~</span><span class="fl">0</span> <span class="op">+</span> <span class="va">summed</span><span class="op">$</span><span class="va">type</span> <span class="op">+</span> <span class="va">summed</span><span class="op">$</span><span class="va">patient.id</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Have a look</span></span>
@@ -1377,31 +1363,31 @@ attr(,"contrasts")$`summed$type`
 attr(,"contrasts")$`summed$patient.id`
 [1] "contr.treatment"</code></pre>
 </div>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># change column/rownames names to more simple group names: </span></span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># change column/rownames names to more simple group names: </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/make.names.html">make.names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ETV6-RUNX1"</span>, <span class="st">"PBMMC"</span>,<span class="st">"patient2"</span>,<span class="st">"patient3"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">design</span><span class="op">)</span><span class="op">&lt;-</span><span class="fu">colData</span><span class="op">(</span><span class="va">summed</span><span class="op">)</span><span class="op">$</span><span class="va">sample</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Specify which contrast to analyse:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-21_b508f8cb81bf2e1b90737b88f16b1c67">
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">contrast.mat</span> <span class="op">&lt;-</span> <span class="fu">limma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/makeContrasts.html">makeContrasts</a></span><span class="op">(</span><span class="va">ETV6.RUNX1</span> <span class="op">-</span> <span class="va">PBMMC</span>,</span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">contrast.mat</span> <span class="op">&lt;-</span> <span class="fu">limma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/makeContrasts.html">makeContrasts</a></span><span class="op">(</span><span class="va">ETV6.RUNX1</span> <span class="op">-</span> <span class="va">PBMMC</span>,</span>
 <span>                                     levels <span class="op">=</span> <span class="va">design</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Firt, we perform TMM normalization using edgeR, and then <code>limma</code> can perform the transformation with <code>voom</code>, fit the model, compute the contrasts and compute test statistics with <code>eBayes</code>:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-22_77efaa0cd4c72e9c28aa9b874a4229a5">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dge</span> <span class="op">&lt;-</span> <span class="fu">edgeR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/calcNormFactors.html">calcNormFactors</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>  </span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dge</span> <span class="op">&lt;-</span> <span class="fu">edgeR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/edgeR/man/calcNormFactors.html">calcNormFactors</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>  </span>
 <span></span>
 <span><span class="co">#Do limma</span></span>
 <span><span class="va">vm</span> <span class="op">&lt;-</span> <span class="fu">limma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/voom.html">voom</a></span><span class="op">(</span><span class="va">dge</span>, design <span class="op">=</span> <span class="va">design</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day3-1_differential_gene_expression_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">limma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/lmFit.html">lmFit</a></span><span class="op">(</span><span class="va">vm</span>, design <span class="op">=</span> <span class="va">design</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">limma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/lmFit.html">lmFit</a></span><span class="op">(</span><span class="va">vm</span>, design <span class="op">=</span> <span class="va">design</span><span class="op">)</span></span>
 <span><span class="va">fit.contrasts</span> <span class="op">&lt;-</span> <span class="fu">limma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/contrasts.fit.html">contrasts.fit</a></span><span class="op">(</span><span class="va">fit</span>, <span class="va">contrast.mat</span><span class="op">)</span></span>
 <span><span class="va">fit.contrasts</span> <span class="op">&lt;-</span> <span class="fu">limma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/ebayes.html">eBayes</a></span><span class="op">(</span><span class="va">fit.contrasts</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can use <code>topTable</code> to get the most significantly differentially expressed genes, and save the full DE results to an object. How many genes are significant? Are you suprised by this number?</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-23_ade240fd0ed9d7a49ea411fa7e9d1f87">
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Show the top differentially expressed genes:</span></span>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Show the top differentially expressed genes:</span></span>
 <span><span class="fu">limma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html">topTable</a></span><span class="op">(</span><span class="va">fit.contrasts</span>, number <span class="op">=</span> <span class="fl">10</span>, sort.by <span class="op">=</span> <span class="st">"P"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               logFC  AveExpr         t      P.Value    adj.P.Val        B
@@ -1416,34 +1402,26 @@ PTP4A3      3.734865 5.449894  13.23439 1.395246e-07 0.0001335825 8.126807
 CD27        4.115561 5.843582  13.23011 1.399471e-07 0.0001335825 8.147433
 ALOX5       4.142010 5.682900  13.16658 1.463814e-07 0.0001335825 8.098199</code></pre>
 </div>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">limma_de</span> <span class="op">&lt;-</span> <span class="fu">limma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html">topTable</a></span><span class="op">(</span><span class="va">fit.contrasts</span>, number <span class="op">=</span> <span class="cn">Inf</span>, sort.by <span class="op">=</span> <span class="st">"P"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">limma_de</span> <span class="op">&lt;-</span> <span class="fu">limma</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/limma/man/toptable.html">topTable</a></span><span class="op">(</span><span class="va">fit.contrasts</span>, number <span class="op">=</span> <span class="cn">Inf</span>, sort.by <span class="op">=</span> <span class="st">"P"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">limma_de</span><span class="op">$</span><span class="va">adj.P.Val</span><span class="op">&lt;</span><span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2738</code></pre>
 </div>
 </div>
 <p>And we can check whether this corresponds to the counts by generating a violin plot, or a gene downregulated in tumor, or a gene upregulated in tumor:</p>
-<div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-24_c31c6cced8cacd5b370697193936bc89">
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html">VlnPlot</a></span><span class="op">(</span><span class="va">proB</span>, <span class="st">"S100A9"</span>, split.by <span class="op">=</span> <span class="st">"type"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The default behaviour of split.by has changed.
-Separate violin plots are now plotted side-by-side.
-To restore the old behaviour of a single split violin,
-set split.plot = TRUE.
-      
-This message will be shown once per session.</code></pre>
-</div>
+<div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-24_29639f2edf7709b198b97a05d8db5d00">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html">VlnPlot</a></span><span class="op">(</span><span class="va">proB</span>, <span class="st">"S100A9"</span>, split.by <span class="op">=</span> <span class="st">"type"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day3-1_differential_gene_expression_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html">VlnPlot</a></span><span class="op">(</span><span class="va">proB</span>, <span class="st">"SOCS2"</span>, split.by <span class="op">=</span> <span class="st">"type"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html">VlnPlot</a></span><span class="op">(</span><span class="va">proB</span>, <span class="st">"SOCS2"</span>, split.by <span class="op">=</span> <span class="st">"type"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="day3-1_differential_gene_expression_files/figure-html/unnamed-chunk-24-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We can run a similar analysis with <code>Seurat</code>, but this will not take into account the paired design. Run the code below.</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-25_3aff7b05afc6eae1125814d165db7fd3">
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tum_vs_norm</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FindMarkers.html">FindMarkers</a></span><span class="op">(</span><span class="va">proB</span>, </span>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tum_vs_norm</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/FindMarkers.html">FindMarkers</a></span><span class="op">(</span><span class="va">proB</span>, </span>
 <span>                                   ident.1 <span class="op">=</span> <span class="st">"ETV6-RUNX1"</span>, </span>
 <span>                                   ident.2 <span class="op">=</span> <span class="st">"PBMMC"</span>, </span>
 <span>                                   group.by <span class="op">=</span> <span class="st">"type"</span><span class="op">)</span></span>
@@ -1463,7 +1441,7 @@ Exercise (extra)
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1472,17 +1450,17 @@ Answer
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-26_4a90743d7cc6bcba6a1dd4d01bd31f99">
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">tum_vs_norm</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">tum_vs_norm</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1893    5</code></pre>
 </div>
 </div>
 <p>We find 1893 significant genes. If we merge the <code>FindMarkers</code> and the <code>limma</code> results, keep <code>limma</code>’s most significant genes and plot:</p>
 <div class="cell" data-hash="day3-1_differential_gene_expression_cache/html/unnamed-chunk-27_288520b3ee91a09204f78d2a4690647b">
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">merge_limma_FindMarkers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">tum_vs_norm</span>, <span class="va">limma_de</span>, by<span class="op">=</span><span class="st">"row.names"</span>,</span>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">merge_limma_FindMarkers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">tum_vs_norm</span>, <span class="va">limma_de</span>, by<span class="op">=</span><span class="st">"row.names"</span>,</span>
 <span>                           all.x<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
